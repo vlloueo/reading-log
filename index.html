@@ -202,7 +202,9 @@
     background:var(--surface); border-top:1px solid var(--ink);
     margin:8px -26px -28px; padding:12px 26px;
   }
-  .save-bar .progress{ font-size:13px; color:var(--ink-soft); flex:1; min-width:140px; }
+  .save-bar .progress{ font-size:13px; color:var(--ink-soft); flex:1; min-width:150px; }
+  .save-bar .bar-btns{ display:flex; gap:8px; flex-wrap:nowrap; align-items:center; }
+  .save-bar .bar-btns .btn-primary, .save-bar .bar-btns .btn-ghost{ padding:10px 14px; white-space:nowrap; }
   .save-bar .progress b{ color:var(--accent); }
   .save-bar .save-msg{ width:100%; margin:0; }
   .save-bar .error-text{ width:100%; padding:0; }
@@ -277,6 +279,65 @@
   .t-log.cancelled{ color:#9A9184; text-decoration:line-through; }
   .t-log .tl-type{ font-weight:600; margin-right:6px; }
 
+
+  /* 쓰는 동안 오른쪽에 보이는 미리보기 */
+  .live-card{ border:1px solid var(--ink); border-radius:12px; background:#fff; margin-bottom:22px; overflow:hidden; }
+  .live-head{ background:var(--accent); color:#fff; padding:14px 16px; }
+  .live-kicker{ font-size:11.5px; opacity:0.85; }
+  .live-title{ font-family:'Fraunces', serif; font-size:17px; font-weight:600; margin:4px 0 2px; line-height:1.4; }
+  .live-who{ font-size:12px; opacity:0.9; text-align:right; min-height:14px; }
+  .live-dots{ display:flex; gap:6px; padding:12px 16px 0; }
+  .dot{ width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; background:#EFEBDD; color:#9A9184; }
+  .dot1.on{ background:#3B5D45; color:#fff; } .dot2.on{ background:#C68A3D; color:#fff; } .dot3.on{ background:#A8442E; color:#fff; }
+  .dot4.on{ background:#4A6FA5; color:#fff; } .dot5.on{ background:#7B5C8E; color:#fff; }
+  .live-meta{ padding:8px 16px 0; font-size:12.5px; color:var(--ink-soft); }
+  .live-body{ padding:12px 16px 4px; }
+  .live-body p{ margin:0 0 10px; font-size:14.5px; line-height:1.9; text-indent:1em; }
+  .live-body p.live-empty{ color:var(--ink-soft); text-indent:0; font-size:13.5px; }
+  .live-card .read-btn{ margin:0 16px 14px; }
+
+  .field-row3{ display:grid; grid-template-columns:1fr 1fr 110px; gap:12px; }
+  .who-confirm{ font-size:13px; color:var(--accent); margin:10px 0 0; }
+  .who-confirm:empty{ display:none; }
+  .para-tools{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .para-tools .btn-ghost{ padding:6px 12px; font-size:13px; }
+  .read-btn.speaking{ border-color:var(--accent); color:var(--accent); background:var(--accent-soft); }
+  .read-btn:disabled{ opacity:0.45; cursor:not-allowed; }
+  body.no-tts .read-btn{ display:none; }
+  .check-box{ margin-top:10px; border:1px solid var(--gold); background:var(--gold-soft); border-radius:8px; padding:10px 14px; font-size:13.5px; line-height:1.7; }
+  .check-box ul{ margin:6px 0 0; padding-left:18px; }
+  .check-title{ margin:0; font-weight:600; }
+  .check-title small{ font-weight:400; color:var(--ink-soft); }
+  .check-ok{ margin-top:10px; font-size:13px; color:var(--accent); }
+  .fix-btn{ margin-left:6px; border:1px solid var(--accent); background:#fff; color:var(--accent); border-radius:14px; padding:2px 10px; font-size:12px; font-weight:600; }
+  .teacher-comment{ margin-top:10px; background:var(--gold-soft); border-left:3px solid var(--gold); padding:8px 12px; font-size:13.5px; line-height:1.6; border-radius:0 6px 6px 0; }
+  .jump-live{ display:none; }
+
+  /* 명예의 전당 */
+  .hall{ border:1px solid var(--gold); background:linear-gradient(180deg,#FFF9EA,#FFFDF6); border-radius:12px; padding:14px 16px 12px; margin-bottom:20px; }
+  .hall-title{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; margin:0 0 10px; }
+  .hall-title small{ font-weight:400; font-size:12px; color:var(--ink-soft); font-family:'Work Sans', sans-serif; }
+  .hall-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .hall-card{ flex:1 1 110px; max-width:170px; min-width:96px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 8px; text-align:center; display:flex; flex-direction:column; gap:2px; }
+  .hall-rank{ font-size:12px; font-weight:700; border-radius:10px; padding:1px 10px; align-self:center; background:#ECE7D8; color:var(--ink-soft); }
+  .hall-card.rank1{ border-color:#F6C945; } .hall-card.rank1 .hall-rank{ background:#F6C945; color:#5B4300; }
+  .hall-card.rank2 .hall-rank{ background:#D5D9DE; color:#3B4048; } .hall-card.rank3 .hall-rank{ background:#D9A066; color:#4F2D0B; }
+  .hall-name{ font-family:'Fraunces', serif; font-weight:600; font-size:15px; margin-top:4px; }
+  .hall-count{ font-size:13px; color:var(--accent); font-weight:600; }
+  .hall-empty{ margin:0; font-size:13.5px; color:var(--ink-soft); }
+
+  /* 선생님: 독서기록장 검토 */
+  .review-card{ border:1px solid var(--line); border-radius:10px; background:#fff; margin-bottom:10px; overflow:hidden; }
+  .review-head{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:12px 16px; cursor:pointer; background:var(--surface); }
+  .review-card.open .caret{ transform:rotate(90deg); }
+  .rv-who{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; }
+  .rv-book{ font-size:13.5px; color:var(--ink-soft); }
+  .rv-date{ font-size:12px; color:var(--ink-soft); margin-left:auto; }
+  .review-body{ display:none; padding:6px 18px 18px; border-top:1px dashed var(--line); background:var(--surface-alt); }
+  .review-card.open .review-body{ display:block; }
+  .t-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .badge.warn{ background:#F3E2DD; color:var(--danger); border:none; }
+
   @media (max-width:860px){
     .page{ padding:24px 14px 60px; }
     .split{ grid-template-columns:1fr; gap:0; }
@@ -284,7 +345,6 @@
     .masthead{ padding:22px 18px; }
     .panel-wrap{ padding:20px 18px; }
     .save-bar{ margin:8px -18px -20px; padding:12px 18px; }
-    .tab{ padding:9px 12px; font-size:13px; }
     .picker{ grid-template-columns:1fr 1fr; }
     .picker .pk-name{ grid-column:1 / -1; }
     .t-tool-grid{ grid-template-columns:1fr; }
@@ -292,7 +352,25 @@
     .t-row{ grid-template-columns:30px 1fr auto; row-gap:4px; }
     .t-row .t-num{ display:none; }
     .t-row .t-stat{ grid-column:2 / -1; font-size:13px; }
+    .t-row .t-name{ grid-column:2; grid-row:1; }
+    .t-row .t-more{ grid-column:3; grid-row:1; white-space:nowrap; padding:6px 12px; }
+    .t-row > span:first-child{ grid-column:1; grid-row:1; }
     .t-logs{ padding-left:18px; }
+    input, select, textarea{ font-size:16px; }
+    .btn-primary{ min-height:46px; }
+    .btn-ghost{ min-height:40px; }
+    .jump-live{ display:inline-block; }
+    .field-row3{ grid-template-columns:1fr 1fr; }
+    .field-row3 .field:last-child{ grid-column:1 / -1; }
+    .hall-card{ flex:1 1 42%; max-width:none; }
+    .rv-date{ margin-left:0; }
+    .save-bar{ gap:8px; padding-top:10px; padding-bottom:10px; }
+    .save-bar .progress{ flex-basis:100%; min-width:0; font-size:12.5px; }
+    .save-bar .bar-btns{ width:100%; }
+    .save-bar .bar-btns .btn-primary{ flex:1; padding:10px 8px; }
+    .save-bar .bar-btns .btn-ghost{ padding:10px 10px; }
+    .tabs{ flex-wrap:nowrap; padding-left:0; gap:3px; }
+    .tab{ flex:1 1 0; padding:10px 2px; font-size:12.5px; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   }
 </style>
 </head>
@@ -310,6 +388,7 @@
   <div class="who-bar" id="whoBar">
     <p class="who-title">나는 누구일까요? 학년 · 반 · 이름을 골라요.</p>
     <div id="whoSlot"></div>
+    <p class="who-confirm" id="whoConfirm"></p>
   </div>
 
   <nav class="tabs">
@@ -333,7 +412,7 @@
     <section class="tab-panel" id="panel-essay">
       <div class="split">
         <div class="split-main"><div id="essayFormArea"><p class="empty-note">먼저 위에서 학년, 반, 이름을 골라주세요.</p></div></div>
-        <aside class="split-side" id="essayHistoryArea"></aside>
+        <aside class="split-side" id="essayHistoryArea"><div id="essayLive"></div><div id="essayPast"></div></aside>
       </div>
     </section>
 
@@ -540,15 +619,16 @@
     p.mount = () => {
       const gSel = $(id + 'Grade'), cSel = $(id + 'Class'), nSel = withName ? $(id + 'Name') : null;
       const classMode = hasClassInfo();
+      const ok = (g, c) => !p.allowed || p.allowed.some(a => a.grade === g && a.cls === c);
       gSel.parentElement.style.display = classMode ? '' : 'none';
       cSel.parentElement.style.display = classMode ? '' : 'none';
       function fill(){
         if(classMode){
-          const grades = gradesOf();
+          const grades = uniq(roster.filter(s => ok(s.grade, s.cls)).map(s => s.grade));
           if(!p.gv && grades.length === 1) p.gv = toVal(grades[0]);
           gSel.innerHTML = '<option value="">학년 선택</option>' + grades.map(g =>
             `<option value="${esc(toVal(g))}"${toVal(g) === p.gv ? ' selected' : ''}>${esc(gradeLabel(g))}</option>`).join('');
-          const classes = p.gv ? classesOf(fromVal(p.gv)) : [];
+          const classes = p.gv ? uniq(roster.filter(s => s.grade === fromVal(p.gv) && ok(s.grade, s.cls)).map(s => s.cls)) : [];
           if(p.gv && !p.cv && classes.length === 1) p.cv = toVal(classes[0]);
           cSel.innerHTML = '<option value="">반 선택</option>' + classes.map(c =>
             `<option value="${esc(toVal(c))}"${toVal(c) === p.cv ? ' selected' : ''}>${esc(classLabel(c))}</option>`).join('');
@@ -558,7 +638,7 @@
           const ready = !classMode || (p.gv && p.cv);
           const list = [];
           if(ready) roster.forEach((s, i) => {
-            if(!classMode || (toVal(s.grade) === p.gv && toVal(s.cls) === p.cv)) list.push({ s: s, i: i });
+            if(!classMode || (toVal(s.grade) === p.gv && toVal(s.cls) === p.cv && ok(s.grade, s.cls))) list.push({ s: s, i: i });
           });
           nSel.innerHTML = '<option value="">이름 선택</option>' + list.map(x =>
             `<option value="${x.i}"${x.i === p.idx ? ' selected' : ''}>${esc(studentLabel(x.s))}</option>`).join('');
@@ -571,6 +651,15 @@
       fill();
     };
     return p;
+  }
+
+  // 같은 책인지 비교할 때 쓰는 값: 띄어쓰기, 기호, 영어 대소문자가 달라도 같은 책으로 본다 (서버와 같은 기준)
+  function bookKey(t){
+    const s = String(t == null ? '' : t).normalize('NFC').toLowerCase();
+    let k;
+    try{ k = s.replace(new RegExp('[^\\p{L}\\p{N}]', 'gu'), ''); }
+    catch(e){ k = s.replace(/[\s.,!?'"“”‘’()\[\]<>《》〈〉「」『』·\-_:;~]/g, ''); }
+    return k || s.trim();
   }
 
   // ---------- 책 선택칸 (Books 시트 목록 + 직접 입력) ----------
@@ -619,6 +708,8 @@
 
   async function selectStudent(st){
     me = st;
+    stopSpeak();
+    $('whoConfirm').textContent = st ? '✅ 지금은 ' + whoLine() + ' 학생이에요.' : '';
     entries = [];
     essays = [];
     recordDate = TODAY;
@@ -785,7 +876,9 @@
   }
 
   // =====================================================
-  // 독서기록장 (책 이름, 다 읽은 날짜, 서평 5문단) - 서평 쓰기 학습지의 안내와 예시를 문단마다 넣었어요
+  // 독서기록장 (책 이름, 글쓴이, 출판사, 쪽수, 다 읽은 날짜, 서평 제목, 서평 5문단)
+  //   - 서평 쓰기 학습지의 안내와 예시를 문단마다 넣었어요.
+  //   - 다 쓰면 "선생님께 제출"하고, 선생님이 확인하면 독서록 권수에 들어가요.
   // =====================================================
   const FEELING_WORDS = [
     ['기쁘고 좋은 느낌', ['기뻤다','즐거웠다','뿌듯했다','흐뭇했다','따뜻했다','든든했다','고마웠다','감동적이었다']],
@@ -876,13 +969,111 @@
   ];
 
   function freshEssayDraft(){
-    return { book: '', finishDate: TODAY, title: '', paras: ['', '', '', '', ''] };
+    return { book: '', author: '', publisher: '', pages: '', finishDate: TODAY, title: '', paras: ['', '', '', '', ''] };
+  }
+  function draftFromEssay(e){
+    return {
+      book: e.bookTitle, author: e.author || '', publisher: e.publisher || '', pages: e.pages || '',
+      finishDate: e.date <= TODAY ? e.date : TODAY, title: e.reviewTitle || '', paras: e.paragraphs.slice(0, 5)
+    };
   }
   let essayDraft = freshEssayDraft();
   let essayNote = '';   // 책 고르기에서 알려줄 말 (이미 쓴 글을 불러왔을 때 등)
 
   function essayDraftEmpty(d){ return !d.title.trim() && d.paras.every(p => !p.trim()); }
-  function findEssay(book){ book = (book || '').trim(); return book ? essays.find(e => e.bookTitle === book) : null; }
+  function findEssay(book){ book = (book || '').trim(); return book ? essays.find(e => bookKey(e.bookTitle) === bookKey(book)) : null; }
+  function whoLine(){
+    if(!me) return '';
+    return [(me.grade || me.cls) ? gradeLabel(me.grade) + ' ' + classLabel(me.cls) : '', me.num ? me.num + '번' : '', me.name].filter(Boolean).join(' ');
+  }
+
+  // ---------- 소리 내어 읽어주기 (브라우저 기능, 지원하는 기기에서만 보여요) ----------
+  const TTS_OK = typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined';
+  if(!TTS_OK) document.body.classList.add('no-tts');
+  function stopSpeak(){
+    if(TTS_OK){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+    document.querySelectorAll('.read-btn.speaking').forEach(b => { b.classList.remove('speaking'); b.textContent = b.getAttribute('data-label') || '🔊 읽어주기'; });
+  }
+  function speakText(text, btn){
+    if(!TTS_OK || !text.trim()) return;
+    const wasThis = btn.classList.contains('speaking');
+    stopSpeak();
+    if(wasThis) return;
+    const u = new window.SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR';
+    u.rate = 0.95;
+    try{
+      const v = (window.speechSynthesis.getVoices() || []).find(x => x.lang && x.lang.toLowerCase().indexOf('ko') === 0);
+      if(v) u.voice = v;
+    }catch(e){}
+    if(!btn.getAttribute('data-label')) btn.setAttribute('data-label', btn.textContent);
+    btn.classList.add('speaking');
+    btn.textContent = '⏹ 멈추기';
+    const done = () => { if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); btn.textContent = btn.getAttribute('data-label'); } };
+    u.onend = done; u.onerror = done;
+    window.speechSynthesis.speak(u);
+  }
+
+  // ---------- 글 점검 도우미 (자주 틀리는 맞춤법과 어색한 문장을 찾아줘요) ----------
+  // 모든 맞춤법을 찾아주지는 못해요. 확실한 것만 알려주고, 고칠지는 학생이 정해요.
+  const SPELL_RULES = [
+    ['되요', '돼요'], ['됬', '됐'], ['안돼', '안 돼'], ['안했', '안 했'], ['어떻게해', '어떻게 해'],
+    ['몇일', '며칠'], ['어떻해', '어떡해'], ['금새', '금세'], ['설겆이', '설거지'], ['역활', '역할'],
+    ['희안', '희한'], ['오랫만', '오랜만'], ['웬지', '왠지'], ['왠만', '웬만'], ['왠일', '웬일'],
+    ['깨끗히', '깨끗이'], ['열심이', '열심히'], ['곰곰히', '곰곰이'], ['일일히', '일일이'], ['틈틈히', '틈틈이'],
+    ['꼼꼼이', '꼼꼼히'], ['바램', '바람'], ['뵈요', '봬요'], ['햇갈', '헷갈'], ['어의없', '어이없'],
+    ['있읍니다', '있습니다'], ['없읍니다', '없습니다'], ['이예요', '이에요'], ['할려고', '하려고']
+  ];
+  function checkText(text){
+    const out = [];
+    const t = text || '';
+    if(!t.trim()) return out;
+    // 1) 자주 틀리는 맞춤법
+    const seen = {};
+    SPELL_RULES.forEach(r => {
+      if(t.indexOf(r[0]) >= 0 && !seen[r[0]]){ seen[r[0]] = true; out.push({ kind: 'fix', msg: `"${r[0]}" → "${r[1]}"`, find: r[0], to: r[1] }); }
+    });
+    // 받침 ㄹ + "께" 는 "게"로 써요 (할께 → 할게)
+    (t.match(/[가-힣]+께/g) || []).forEach(w => {
+      const last = w.charCodeAt(w.length - 2) - 0xAC00;       // 께 바로 앞 글자
+      if(last >= 0 && last % 28 === 8 && !seen[w]){
+        seen[w] = true;
+        const fixed = w.slice(0, -1) + '게';
+        out.push({ kind: 'fix', msg: `"${w}" → "${fixed}"`, find: w, to: fixed });
+      }
+    });
+    // 2) 글에서는 쓰지 않는 표현
+    if(/[ㅋㅎㅠㅜㅡ]{2,}/.test(t)) out.push({ kind: 'tip', msg: 'ㅋㅋ, ㅎㅎ, ㅠㅠ 같은 표현은 글에서는 쓰지 않아요. 낱말로 바꿔 써요.' });
+    // 3) 같은 말이 바로 이어서 나올 때
+    const rep = t.match(/(\S{2,})\s+\1(?=[\s.,!?]|$)/);
+    if(rep) out.push({ kind: 'tip', msg: `같은 말이 이어서 두 번 나와요: "${rep[0]}"` });
+    // 4) 문장 살펴보기
+    const sentences = (t.match(/[^.!?\n]+[.!?]*/g) || []).map(x => x.trim()).filter(Boolean);
+    const long = sentences.find(x => x.length > 70);
+    if(long) out.push({ kind: 'tip', msg: `문장이 너무 길어요. 둘로 나누어 볼까요? "${long.slice(0, 22)}…"` });
+    const ends = sentences.map(x => x.replace(/[.!?]+$/, '').slice(-2));
+    for(let i = 0; i + 2 < ends.length; i++){
+      if(ends[i].length === 2 && ends[i] === ends[i+1] && ends[i] === ends[i+2]){
+        out.push({ kind: 'tip', msg: `문장이 계속 "…${ends[i]}"로 끝나요. 끝을 조금 바꿔 보면 글이 더 자연스러워요.` });
+        break;
+      }
+    }
+    ['그리고', '그래서', '하지만'].forEach(w => {
+      if((t.match(new RegExp(w, 'g')) || []).length >= 3) out.push({ kind: 'tip', msg: `"${w}"가 여러 번 나와요. 일부는 빼거나 다른 말로 바꿔 볼까요?` });
+    });
+    if(!/[.!?]["”')\]]*\s*$/.test(t.trim())) out.push({ kind: 'fix', msg: '글 끝에 마침표(.)가 없어요.', append: '.' });
+    if(sentences.length < 2 && t.trim().length < 40) out.push({ kind: 'tip', msg: '문단이 조금 짧아요. 2~3문장 이상으로 자세히 써 볼까요?' });
+    return out;
+  }
+  function checkHtml(i, issues){
+    if(issues.length === 0){
+      return '<div class="check-ok">✅ 눈에 띄는 문제는 없었어요. (이 점검은 도우미예요. 선생님 확인이 꼭 필요해요)</div>';
+    }
+    return `<div class="check-box"><p class="check-title">✔ 글 점검 도우미 · ${issues.length}가지를 알려줄게요 <small>(참고용이에요. 고칠지는 내가 정해요)</small></p><ul>` +
+      issues.map(x => `<li>${esc(x.msg)}${x.kind === 'fix'
+        ? ` <button type="button" class="fix-btn" data-fix-i="${i}" data-find="${esc(x.find || '')}" data-to="${esc(x.to || x.append || '')}" data-append="${x.append ? '1' : ''}">고치기</button>` : ''}</li>`).join('') +
+      '</ul></div>';
+  }
 
   function paraCardHtml(i, d){
     const p = ESSAY_PARAS[i];
@@ -905,21 +1096,63 @@
         ${feel}
         ${p.example ? `<details class="tip"><summary>📖 예시 보기</summary><div class="tip-body">${p.example}</div></details>` : ''}
         <textarea class="lined" id="essayP${i}" placeholder="${esc(p.placeholder)}">${esc(d.paras[i])}</textarea>
+        <div class="para-tools">
+          <button type="button" class="btn-ghost read-btn" data-read="${i}" data-label="🔊 읽어주기">🔊 읽어주기</button>
+          <button type="button" class="btn-ghost" data-check="${i}">✔ 글 점검</button>
+        </div>
+        <div class="check-result" id="checkResult${i}"></div>
       </section>`;
+  }
+
+  // 쓰는 동안 오른쪽에 보이는 한 편의 글
+  function renderEssayLive(){
+    const box = $('essayLive');
+    if(!box) return;
+    if(!me){ box.innerHTML = ''; return; }
+    const d = essayDraft;
+    const body = d.paras.filter(p => p.trim()).map(p => `<p>${esc(p.trim()).replace(/\n/g, '<br>')}</p>`).join('');
+    const book = d.book.trim();
+    const headTitle = d.title.trim() || (book ? '『' + book + '』 독서기록장' : '『책 제목』 독서기록장');
+    const meta = [d.title.trim() && book ? '『' + book + '』' : '', d.author.trim(), d.publisher.trim(), d.pages.trim() ? d.pages.trim() + '쪽' : ''].filter(Boolean).join(' · ');
+    box.innerHTML = `
+      <div class="live-card">
+        <div class="live-head">
+          <span class="live-kicker">✍️ 지금 쓰고 있는 글 · 미리보기</span>
+          <div class="live-title">${esc(headTitle)}</div>
+          <div class="live-who">${esc(whoLine())}</div>
+        </div>
+        <div class="live-dots">${d.paras.map((p, i) => `<span class="dot dot${i + 1}${p.trim() ? ' on' : ''}">${i + 1}</span>`).join('')}</div>
+        ${meta ? `<div class="live-meta">${esc(meta)}</div>` : ''}
+        <div class="live-body">${body || '<p class="live-empty">아래 칸에 문단을 쓰면 여기에 한 편의 글로 보여요.</p>'}</div>
+        <button type="button" class="btn-ghost read-btn" id="liveReadBtn" data-label="🔊 전체 읽어주기"${body ? '' : ' disabled'}>🔊 전체 읽어주기</button>
+      </div>`;
+    const rb = $('liveReadBtn');
+    rb.addEventListener('click', () => speakText(d.paras.filter(p => p.trim()).map(p => p.trim()).join(' '), rb));
   }
 
   function renderEssayForm(){
     const area = $('essayFormArea');
+    renderEssayLive();
     if(!me){
       area.innerHTML = '<p class="empty-note">먼저 위에서 학년, 반, 이름을 골라주세요.</p>';
       return;
     }
     const d = essayDraft;
+    const cur = findEssay(d.book);
+    const reviseNote = (cur && cur.status === '수정요청' && cur.note)
+      ? `<p class="note-box warn">↩️ 선생님이 고쳐 쓰기를 부탁했어요.<br>💬 ${esc(cur.teacherName ? cur.teacherName + ' 선생님' : '선생님')}: ${esc(cur.note)}</p>` : '';
     area.innerHTML = `
       <p class="note-box" id="essayNote" style="display:${essayNote ? 'block' : 'none'};">${esc(essayNote)}</p>
+      ${reviseNote}
       ${bookFieldHtml('essayBook', '책 이름', d.book)}
+      <p class="hint-line" style="margin-top:-10px;">같은 책은 띄어쓰기가 달라도 같은 책으로 봐요. 한 책은 독서록 권수에 한 번만 들어가요.</p>
+      <div class="field-row3">
+        <div class="field"><label for="essayAuthor">글쓴이(저자) <span class="opt">(선택)</span></label><input type="text" id="essayAuthor" value="${esc(d.author)}"></div>
+        <div class="field"><label for="essayPublisher">출판사 <span class="opt">(선택)</span></label><input type="text" id="essayPublisher" value="${esc(d.publisher)}"></div>
+        <div class="field"><label for="essayPages">쪽수 <span class="opt">(선택)</span></label><input type="text" id="essayPages" inputmode="numeric" placeholder="예: 216" value="${esc(d.pages)}"></div>
+      </div>
       <div class="field">
-        <label for="essayFinish">다 읽은 날짜</label>
+        <label for="essayFinish">다 읽은 날짜 (읽은 시기)</label>
         <input type="date" id="essayFinish" value="${esc(d.finishDate)}" max="${TODAY}">
       </div>
       <div class="title-card">
@@ -931,17 +1164,23 @@
         <input type="text" id="essayTitle" placeholder="내가 쓸 서평의 제목" value="${esc(d.title)}">
       </div>
       <p class="hint-line">각 문단은 줄을 바꾸지 않고 이어서 써요. 오른쪽(또는 아래)에는 내가 쓴 글이 문단 제목 없이 한 편의 글로 보여요.</p>
+      <p style="margin:0 0 14px;"><button type="button" class="btn-ghost" id="checkAllBtn">✔ 전체 글 점검 (맞춤법·어색한 문장)</button></p>
       ${ESSAY_PARAS.map((_, i) => paraCardHtml(i, d)).join('')}
       <div class="save-bar">
         <span class="progress" id="essayProgress"></span>
-        <button class="btn-primary" id="essaySaveBtn" type="button" disabled>독서기록장 저장하기</button>
-        <p class="note-box warn" id="essayDupNote" style="display:none;margin:0;width:100%;">이 책으로 쓴 독서기록장이 이미 있어요. 저장하면 지금 쓴 내용으로 바뀌어요.</p>
+        <span class="bar-btns">
+          <button type="button" class="btn-ghost jump-live" id="jumpLiveBtn">👁 미리보기</button>
+          <button class="btn-ghost" id="essayDraftBtn" type="button" disabled>임시 저장</button>
+          <button class="btn-primary" id="essaySubmitBtn" type="button" disabled>선생님께 제출하기</button>
+        </span>
+        <p class="note-box warn" id="essayDupNote" style="display:none;margin:0;width:100%;"></p>
         <p class="save-msg" id="essaySaveMsg"></p>
         <p class="error-text" id="essayError" style="display:none;"></p>
       </div>
     `;
 
-    const saveBtn = $('essaySaveBtn');
+    const draftBtn = $('essayDraftBtn');
+    const submitBtn = $('essaySubmitBtn');
     const saveMsg = $('essaySaveMsg');
     const errEl = $('essayError');
 
@@ -950,13 +1189,27 @@
       d.paras.forEach((p, i) => {
         $('paraCard' + i).classList.toggle('filled', !!p.trim());
         $('paraCount' + i).textContent = p.trim() ? p.trim().length + '자' : '';
+        const rb = area.querySelector(`[data-read="${i}"]`);
+        if(rb) rb.disabled = !p.trim();
       });
       $('essayProgress').innerHTML = done === 5
-        ? '<b>5문단을 모두 썼어요!</b> 저장하면 독서록 권수에 들어가요.'
-        : `서평 문단 <b>${done}/5</b> · 5문단을 모두 쓰면 독서록 권수에 들어가요.`;
-      saveBtn.disabled = !(d.book.trim() && (d.title.trim() || done > 0));
+        ? '<b>5문단을 모두 썼어요!</b> 제출하면 선생님이 확인해요.'
+        : `서평 문단 <b>${done}/5</b> · 모두 쓰면 제출할 수 있어요.`;
       const dup = findEssay(d.book);
-      $('essayDupNote').style.display = (dup && !essayDraftEmpty(d)) ? 'block' : 'none';
+      const locked = !!(dup && dup.status === '확인완료');
+      draftBtn.disabled = locked || !(d.book.trim() && (d.title.trim() || done > 0));
+      submitBtn.disabled = locked || !(d.book.trim() && done === 5);
+      const dupNote = $('essayDupNote');
+      if(locked){
+        dupNote.textContent = '이 책은 이미 선생님이 확인했어요. 같은 책은 한 번만 낼 수 있고, 확인한 글은 고칠 수 없어요.';
+        dupNote.style.display = 'block';
+      } else if(dup && !essayDraftEmpty(d)){
+        dupNote.textContent = '이 책으로 쓴 독서기록장이 이미 있어요. 저장하면 지금 쓴 내용으로 바뀌어요.';
+        dupNote.style.display = 'block';
+      } else {
+        dupNote.style.display = 'none';
+      }
+      renderEssayLive();
     }
     function touched(){ saveMsg.classList.remove('show'); refresh(); }
 
@@ -965,13 +1218,16 @@
       const dup = findEssay(v);
       if(dup && essayDraftEmpty(d)){
         // 비어 있는 상태에서 이미 쓴 책을 고르면, 쓰던 글을 불러온다
-        essayDraft = { book: dup.bookTitle, finishDate: dup.date <= TODAY ? dup.date : TODAY, title: dup.reviewTitle || '', paras: dup.paragraphs.slice(0, 5) };
-        essayNote = '이 책으로 쓰던 독서기록장을 불러왔어요. 이어서 쓰면 돼요.';
+        essayDraft = draftFromEssay(dup);
+        essayNote = dup.status === '확인완료' ? '선생님이 확인한 독서기록장이에요. 읽기만 할 수 있어요.' : '이 책으로 쓰던 독서기록장을 불러왔어요. 이어서 쓰면 돼요.';
         renderEssayForm();
         return;
       }
       touched();
     });
+    $('essayAuthor').addEventListener('input', e => { d.author = e.target.value; touched(); });
+    $('essayPublisher').addEventListener('input', e => { d.publisher = e.target.value; touched(); });
+    $('essayPages').addEventListener('input', e => { d.pages = e.target.value; touched(); });
     $('essayFinish').addEventListener('change', e => {
       if(!e.target.value || e.target.value > TODAY){ e.target.value = d.finishDate; return; }
       d.finishDate = e.target.value; touched();
@@ -993,40 +1249,78 @@
         ta.dispatchEvent(new Event('input', { bubbles: true }));
       });
     });
+    // 문단 읽어주기
+    area.querySelectorAll('[data-read]').forEach(b => {
+      b.addEventListener('click', () => speakText(d.paras[Number(b.getAttribute('data-read'))], b));
+    });
+    // 글 점검
+    function runCheck(i){
+      $('checkResult' + i).innerHTML = d.paras[i].trim() ? checkHtml(i, checkText(d.paras[i])) : '';
+      $('checkResult' + i).querySelectorAll('.fix-btn').forEach(fb => {
+        fb.addEventListener('click', () => {
+          const ta = $('essayP' + i);
+          if(fb.getAttribute('data-append')) ta.value = ta.value.replace(/\s+$/, '') + fb.getAttribute('data-to');
+          else ta.value = ta.value.split(fb.getAttribute('data-find')).join(fb.getAttribute('data-to'));
+          ta.dispatchEvent(new Event('input', { bubbles: true }));
+          runCheck(i);
+        });
+      });
+    }
+    area.querySelectorAll('[data-check]').forEach(b => {
+      b.addEventListener('click', () => {
+        const i = Number(b.getAttribute('data-check'));
+        if(!d.paras[i].trim()){ $('checkResult' + i).innerHTML = '<div class="check-ok">먼저 글을 써 보세요.</div>'; return; }
+        runCheck(i);
+      });
+    });
+    $('checkAllBtn').addEventListener('click', () => {
+      let n = 0;
+      d.paras.forEach((p, i) => { runCheck(i); if(p.trim()) n += checkText(p).length; });
+      saveMsg.textContent = n ? `글 점검 결과: 알려줄 것이 ${n}가지 있어요. 각 문단 아래를 확인해요.` : '글 점검 결과: 눈에 띄는 문제가 없어요. 👍';
+      saveMsg.classList.add('show');
+    });
+    $('jumpLiveBtn').addEventListener('click', () => {
+      $('essayLive').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     refresh();
 
-    saveBtn.addEventListener('click', async () => {
-      saveBtn.disabled = true;
-      saveBtn.textContent = '저장 중...';
+    async function save(submit){
+      draftBtn.disabled = true; submitBtn.disabled = true;
+      const label = submit ? submitBtn.textContent : draftBtn.textContent;
+      (submit ? submitBtn : draftBtn).textContent = '저장 중...';
       saveMsg.classList.remove('show');
       errEl.style.display = 'none';
       try{
         essays = await apiPost('submitEssay', Object.assign(studentParams(), {
-          bookTitle: d.book.trim(), finishDate: d.finishDate, reviewTitle: d.title.trim(), paragraphs: d.paras
+          bookTitle: d.book.trim(), author: d.author.trim(), publisher: d.publisher.trim(), pages: d.pages.trim(),
+          finishDate: d.finishDate, reviewTitle: d.title.trim(), paragraphs: d.paras, submit: submit
         }));
-        const complete = d.paras.every(p => p.trim());
-        saveMsg.textContent = complete
-          ? '5문단을 모두 써서 독서록 권수에 들어갔어요. 👍'
-          : '작성 중으로 저장했어요. 5문단을 모두 쓰면 독서록 권수에 들어가요.';
+        saveMsg.textContent = submit
+          ? '선생님께 제출했어요! 선생님이 확인하면 독서록 권수에 들어가요. 👍'
+          : '임시 저장했어요. 5문단을 모두 쓰면 선생님께 제출할 수 있어요.';
         saveMsg.classList.add('show');
         renderEssayHistory();
-        refresh();
       }catch(err){
         showError(err, errEl, '저장에 실패했어요. 다시 시도해주세요.');
       }finally{
-        saveBtn.textContent = '독서기록장 저장하기';
+        (submit ? submitBtn : draftBtn).textContent = label;
         refresh();
       }
-    });
+    }
+    draftBtn.addEventListener('click', () => save(false));
+    submitBtn.addEventListener('click', () => save(true));
   }
 
   function essayStatusBadge(e){
     if(e.recordType !== '온라인') return '<span class="badge done">' + esc(e.recordType) + ' · 선생님 확인</span>';
-    return e.status === '확인완료' ? '<span class="badge done">✅ 완성</span>' : '<span class="badge draft">✍️ 작성 중</span>';
+    if(e.status === '확인완료') return '<span class="badge done">✅ 확인 완료</span>';
+    if(e.status === '제출함') return '<span class="badge pending">⏳ 선생님 확인 대기</span>';
+    if(e.status === '수정요청') return '<span class="badge warn">↩️ 수정 요청</span>';
+    return '<span class="badge draft">✍️ 작성 중</span>';
   }
 
   function renderEssayHistory(){
-    const area = $('essayHistoryArea');
+    const area = $('essayPast');
     if(!me){
       area.innerHTML = '<p class="side-title">내가 쓴 독서기록장</p><p class="side-sub">이름을 고르면 내가 쓴 글이 여기에 보여요.</p>';
       return;
@@ -1036,10 +1330,11 @@
       return;
     }
     const done = essays.filter(e => e.status === '확인완료').length;
-    const draft = essays.filter(e => e.status === '작성중').length;
+    const waiting = essays.filter(e => e.status === '제출함').length;
+    const draft = essays.filter(e => e.status === '작성중' || e.status === '수정요청').length;
     area.innerHTML = `
-      <p class="side-title">내가 쓴 독서기록장 (완성 ${done}권${draft ? ' · 작성 중 ' + draft : ''})</p>
-      <p class="side-sub">쓴 글이 한 편의 글로 보여요. 고치거나 이어서 쓰려면 버튼을 눌러요.</p>
+      <p class="side-title">내가 쓴 독서기록장 (확인 완료 ${done}권${waiting ? ' · 확인 대기 ' + waiting : ''}${draft ? ' · 쓰는 중 ' + draft : ''})</p>
+      <p class="side-sub">선생님이 확인한 글이 독서록 권수에 들어가요. 고치거나 이어서 쓰려면 버튼을 눌러요.</p>
       ${essays.map((e, i) => {
         const online = e.recordType === '온라인';
         const meta = [e.reviewTitle ? e.bookTitle : '', e.author, e.publisher, e.pages ? e.pages + '쪽' : ''].filter(Boolean).join(' · ');
@@ -1047,23 +1342,25 @@
           ? `<div class="essay-body">${e.paragraphs.filter(t => t.trim())
               .map(t => `<p>${esc(t.trim()).replace(/\n/g, '<br>')}</p>`).join('') || '<p style="color:var(--ink-soft);text-indent:0;">아직 쓴 문단이 없어요.</p>'}</div>`
           : `<div class="past-text" style="color:var(--ink-soft);">${esc(e.recordType)}으로 낸 독서록이에요.</div>`;
+        const comment = e.note ? `<div class="teacher-comment">💬 ${esc(e.teacherName ? e.teacherName + ' 선생님' : '선생님')}: ${esc(e.note)}</div>` : '';
+        const edited = e.teacherEdited ? ' <span class="badge draft">✏️ 선생님이 고쳐 줬어요</span>' : '';
+        const btn = !online ? '' : (e.status === '확인완료' ? '' :
+          `<button class="btn-ghost" type="button" data-edit="${i}">${e.status === '수정요청' ? '고쳐 쓰기' : (e.status === '제출함' ? '다시 열어서 고치기' : '이어서 쓰기')}</button>`);
         return `
           <div class="past-card">
-            <div class="past-date">${fmtDateKo(e.date)} 다 읽음 ${essayStatusBadge(e)}</div>
+            <div class="past-date">${fmtDateKo(e.date)} 다 읽음 ${essayStatusBadge(e)}${edited}</div>
             <div class="essay-headline">${esc(e.reviewTitle || e.bookTitle)}</div>
             ${meta ? `<div class="past-meta">${esc(meta)}</div>` : ''}
             ${body}
-            ${online ? `<button class="btn-ghost" type="button" data-edit="${i}">${e.status === '확인완료' ? '수정하기' : '이어서 쓰기'}</button>` : ''}
+            ${comment}
+            ${btn}
           </div>`;
       }).join('')}
     `;
     area.querySelectorAll('[data-edit]').forEach(btn => {
       btn.addEventListener('click', () => {
         const e = essays[Number(btn.getAttribute('data-edit'))];
-        essayDraft = {
-          book: e.bookTitle, finishDate: e.date <= TODAY ? e.date : TODAY,
-          title: e.reviewTitle || '', paras: e.paragraphs.slice(0, 5)
-        };
+        essayDraft = draftFromEssay(e);
         essayNote = '';
         renderEssayForm();
         $('panel-essay').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1100,6 +1397,24 @@
       renderBoard();
     });
   });
+
+  // 우리 반 독서 명예의 전당 (선생님이 확인한 독서록 권수가 많은 순, 같은 권수는 공동 순위)
+  function hallOfFameHtml(rows, where){
+    const ranked = rows.map((r, i) => ({ r: r, i: i })).filter(x => x.r.essayCount > 0)
+      .sort((a, b) => b.r.essayCount - a.r.essayCount || a.i - b.i);
+    let rank = 0, prev = null;
+    ranked.forEach((x, idx) => { if(x.r.essayCount !== prev){ rank = idx + 1; prev = x.r.essayCount; } x.rank = rank; });
+    const shown = ranked.filter(x => x.rank <= 5);
+    const top = shown.slice(0, 10);
+    const more = shown.length - top.length;
+    const title = `🏆 ${esc(where)} 독서 명예의 전당 <small>(선생님이 확인한 독서록 기준)</small>`;
+    if(top.length === 0){
+      return `<div class="hall"><p class="hall-title">${title}</p><p class="hall-empty">아직 독서록 권수에 들어간 친구가 없어요. 첫 번째 주인공이 되어 볼까요?</p></div>`;
+    }
+    return `<div class="hall"><p class="hall-title">${title}</p>
+      <div class="hall-row">${top.map(x => `<div class="hall-card rank${Math.min(x.rank, 4)}"><span class="hall-rank">${x.rank}위</span><span class="hall-name">${esc(x.r.name)}</span><span class="hall-count">${x.r.essayCount}권</span></div>`).join('')}</div>
+      ${more > 0 ? `<p class="hint-line" style="margin-top:8px;">같은 권수의 친구가 ${more}명 더 있어요.</p>` : ''}</div>`;
+  }
 
   function mountBoardPicker(){
     boardPicker = makePicker('board', false, () => loadBoard());
@@ -1147,6 +1462,7 @@
       const exempt = rows.reduce((s, r) => s + r.exemptCount, 0);
       area.innerHTML = `
         ${asOf}
+        ${hallOfFameHtml(rows, where)}
         <div class="summary-bar">
           <span class="label">${esc(where)} 독서록 권수 (학급 전체 ${total}권${exempt ? ' · 면제권 사용 ' + exempt + '회' : ''})</span>
         </div>
@@ -1220,17 +1536,24 @@
   }
 
   // =====================================================
-  // 교사용 설정 (손으로 쓴 독서록 체크 / 면제권 사용 / 특이사항) - 교사 코드로 들어가요
+  // 교사용 설정 (선생님 코드로 들어가요)
+  //   - 독서기록장 검토: 확인(권수 +1) / 수정 요청 / 코멘트 / 글 직접 고치기
+  //   - 손으로 쓴 독서록 체크 / 면제권 사용 / 특이사항
   // =====================================================
   const TEACHER_KEY = 'readinglog.teacherCode';
   let teacherCode = '';
   try{ teacherCode = sessionStorage.getItem(TEACHER_KEY) || ''; }catch(e){}
+  let teacherInfo = null;           // {name, all, classes}
   let tcPicker = null;
-  let tView = null;                 // {grade, cls, rows}
+  let tView = null;                 // 한 반의 학생별 현황 (손글씨·면제권·특이사항)
+  let tEssays = null;               // 한 반의 독서기록장 검토 목록
+  let tSub = 'review';              // review | tools
+  let tFilter = 'submitted';        // submitted | revise | confirmed | all
   let tChecked = {};                // 체크한 학생 이름
   let tOpen = {};                   // 기록을 펼친 학생 이름
+  let tEssayOpen = {};              // 펼친 독서기록장
+  let tEssayEdit = {};              // 고쳐 쓰기 중인 독서기록장
   let tTool = { type: '손글씨독서록', text: '', date: TODAY };
-  let tMsg = '';
 
   const TOOLS = [
     { key: '손글씨독서록', label: '✏️ 손으로 쓴 독서록 +1권', field: '책 이름 (선택)', ph: '예: 마당을 나온 암탉', apply: '손으로 쓴 독서록 +1권 기록하기' },
@@ -1245,14 +1568,14 @@
 
   function renderTeacherLogin(state){
     const msg = state === 'wrong' ? '코드가 맞지 않아요.'
-      : state === 'notset' ? '아직 교사 코드가 정해지지 않았어요. 구글 시트의 Settings 탭에서 TeacherCode 옆 칸에 코드를 먼저 적어주세요.'
+      : state === 'notset' ? '아직 선생님 코드가 정해지지 않았어요. 구글 시트의 Teachers 탭에 선생님 이름과 코드를 적거나, Settings 탭의 TeacherCode 옆 칸에 코드를 적어주세요.'
       : state === 'error' ? '불러오지 못했어요. 다시 시도해주세요.'
-      : '선생님만 쓸 수 있는 곳이에요. 교사 코드를 입력해주세요.';
+      : '선생님만 쓸 수 있는 곳이에요. 내 선생님 코드를 입력해주세요.';
     $('teacherArea').innerHTML = `
       <div class="teacher-login">
         <p class="note-box">${esc(msg)}</p>
         <div class="field">
-          <label for="teacherCodeInput">교사 코드</label>
+          <label for="teacherCodeInput">선생님 코드</label>
           <input type="text" id="teacherCodeInput" autocomplete="off">
         </div>
         <button class="btn-primary" id="teacherLoginBtn" type="button">들어가기</button>
@@ -1271,53 +1594,219 @@
     return false;
   }
 
-  function renderTeacher(){
-    if(!teacherCode){ renderTeacherLogin(''); return; }
-    $('teacherArea').innerHTML = `
-      <div class="teacher-head">
-        <p>손으로 쓴 독서록을 낸 친구를 체크해서 독서록 권수에 더하고, 면제권 사용 횟수와 특이사항을 기록해요. 명단, 책 목록, 코드는 구글 시트(Students, Books, Settings 탭)에서 고쳐요.</p>
-        <button class="btn-ghost" id="teacherLogoutBtn" type="button">나가기</button>
-      </div>
-      <div id="tcPickerSlot"></div>
-      <p class="save-msg" id="teacherMsg" style="margin:0 0 12px;"></p>
-      <p class="error-text" id="teacherError" style="display:none;"></p>
-      <div id="teacherBody"><p class="loading">불러오는 중...</p></div>
-    `;
-    $('teacherLogoutBtn').addEventListener('click', () => {
-      setTeacherCode(''); tView = null; tChecked = {}; tOpen = {};
-      renderTeacherLogin('');
-    });
-    tcPicker = makePicker('tc', false, () => { tChecked = {}; tOpen = {}; loadTeacherClass(); });
-    defaultClassFor(tcPicker, true);
-    remountPicker(tcPicker, 'tcPickerSlot');
-    loadTeacherClass();
-  }
-
-  async function loadTeacherClass(){
-    const ci = tcPicker && tcPicker.classInfo();
-    if(hasClassInfo() && !ci){
-      $('teacherBody').innerHTML = '<p class="empty-note">학년과 반을 골라주세요.</p>';
-      return;
-    }
-    $('teacherBody').innerHTML = '<p class="loading">불러오는 중...</p>';
-    try{
-      tView = await apiPost('teacherClass', Object.assign({ teacherCode: teacherCode }, ci || {}));
-      renderTeacherBody();
-    }catch(err){
-      if(!handleTeacherError(err)) renderTeacherLogin('error');
-    }
-  }
-
   function showTeacherMsg(text){
     const el = $('teacherMsg');
     if(!el) return;
     el.textContent = text;
     el.classList.toggle('show', !!text);
   }
+  function teacherParams(extra){
+    const ci = tcPicker && tcPicker.classInfo();
+    return Object.assign({ teacherCode: teacherCode }, ci || {}, extra || {});
+  }
+
+  async function renderTeacher(){
+    if(!teacherCode){ teacherInfo = null; renderTeacherLogin(''); return; }
+    tSub = 'review'; tFilter = 'submitted';      // 들어올 때마다 "확인 대기" 목록부터 보여준다
+    $('teacherArea').innerHTML = '<p class="loading">불러오는 중...</p>';
+    try{
+      const first = await apiPost('teacherClass', { teacherCode: teacherCode });   // 선생님 정보와 기본 반
+      teacherInfo = first.teacher;
+      tView = first;
+      tChecked = {}; tOpen = {}; tEssayOpen = {}; tEssayEdit = {};
+      buildTeacherShell(first);
+      await loadTeacherEssays();
+      renderTeacherBody();
+    }catch(err){
+      if(!handleTeacherError(err)) renderTeacherLogin('error');
+    }
+  }
+
+  function buildTeacherShell(first){
+    const who = teacherInfo.all ? '모든 반' : teacherInfo.classes.map(c => classTitle(c.grade, c.cls)).join(', ');
+    $('teacherArea').innerHTML = `
+      <div class="teacher-head">
+        <p><b>${esc(teacherInfo.name)} 선생님</b> 안녕하세요! (${esc(who)})<br>학생이 제출한 독서기록장을 확인하면 독서록 권수가 올라가요. 명단, 책 목록, 선생님 코드는 구글 시트(Students, Books, Teachers, Settings 탭)에서 고쳐요.</p>
+        <button class="btn-ghost" id="teacherLogoutBtn" type="button">나가기</button>
+      </div>
+      <div id="tcPickerSlot"></div>
+      <div class="subtabs" id="teacherSubtabs">
+        <button class="subtab" data-tsub="review" type="button" id="tSubReview">독서기록장 검토</button>
+        <button class="subtab" data-tsub="tools" type="button">손글씨 · 면제권 · 특이사항</button>
+      </div>
+      <p class="save-msg" id="teacherMsg" style="margin:0 0 12px;"></p>
+      <p class="error-text" id="teacherError" style="display:none;"></p>
+      <div id="teacherBody"></div>
+    `;
+    $('teacherLogoutBtn').addEventListener('click', () => {
+      setTeacherCode(''); teacherInfo = null; tView = null; tEssays = null;
+      renderTeacherLogin('');
+    });
+    tcPicker = makePicker('tc', false, () => {
+      tChecked = {}; tOpen = {}; tEssayOpen = {}; tEssayEdit = {};
+      reloadTeacherAll();
+    });
+    tcPicker.allowed = teacherInfo.all ? null : teacherInfo.classes;
+    tcPicker.gv = toVal(first.grade); tcPicker.cv = toVal(first.cls);
+    remountPicker(tcPicker, 'tcPickerSlot');
+    $('teacherSubtabs').querySelectorAll('[data-tsub]').forEach(b => {
+      b.addEventListener('click', async () => {
+        tSub = b.getAttribute('data-tsub');
+        if(tSub === 'tools') await loadTeacherView();
+        renderTeacherBody();
+      });
+    });
+  }
+
+  async function loadTeacherEssays(){
+    const ci = tcPicker && tcPicker.classInfo();
+    if(hasClassInfo() && !ci){ tEssays = null; return; }
+    tEssays = await apiPost('teacherEssays', teacherParams());
+  }
+  async function loadTeacherView(){
+    const ci = tcPicker && tcPicker.classInfo();
+    if(hasClassInfo() && !ci){ tView = null; return; }
+    tView = await apiPost('teacherClass', teacherParams());
+  }
+  async function reloadTeacherAll(){
+    const body = $('teacherBody');
+    const ci = tcPicker && tcPicker.classInfo();
+    if(hasClassInfo() && !ci){ body.innerHTML = '<p class="empty-note">학년과 반을 골라주세요.</p>'; return; }
+    body.innerHTML = '<p class="loading">불러오는 중...</p>';
+    try{
+      await Promise.all([loadTeacherEssays(), loadTeacherView()]);
+      renderTeacherBody();
+    }catch(err){
+      if(!handleTeacherError(err)) body.innerHTML = '<p class="error-text">불러오지 못했어요. 다시 시도해주세요.</p>';
+    }
+  }
 
   function renderTeacherBody(){
     const body = $('teacherBody');
-    if(!body || !tView) return;
+    if(!body) return;
+    const nSubmitted = tEssays ? tEssays.counts.submitted : 0;
+    $('tSubReview').textContent = '독서기록장 검토' + (nSubmitted ? ` (확인 대기 ${nSubmitted})` : '');
+    $('teacherSubtabs').querySelectorAll('[data-tsub]').forEach(b => b.classList.toggle('active', b.getAttribute('data-tsub') === tSub));
+    if(!tEssays && !tView){ body.innerHTML = '<p class="empty-note">학년과 반을 골라주세요.</p>'; return; }
+    if(tSub === 'review') renderTeacherReview(); else renderTeacherTools();
+  }
+
+  // ---------- 독서기록장 검토 ----------
+  const REVIEW_FILTERS = [
+    { key: 'submitted', label: '확인 대기', count: c => c.submitted },
+    { key: 'revise', label: '수정 요청함', count: c => c.revise },
+    { key: 'confirmed', label: '확인 완료', count: c => c.confirmed },
+    { key: 'all', label: '전체', count: c => c.submitted + c.revise + c.confirmed }
+  ];
+  const FILTER_STATUS = { submitted: ['제출함'], revise: ['수정요청'], confirmed: ['확인완료'], all: ['제출함', '수정요청', '확인완료'] };
+
+  function essayKey(it){ return it.name + '##' + bookKey(it.bookTitle); }
+  function essayTextHtml(it){
+    const meta = [it.reviewTitle ? it.bookTitle : '', it.author, it.publisher, it.pages ? it.pages + '쪽' : ''].filter(Boolean).join(' · ');
+    return `
+      <div class="essay-headline">${esc(it.reviewTitle || it.bookTitle)}</div>
+      ${meta ? `<div class="past-meta">${esc(meta)}</div>` : ''}
+      <div class="essay-body">${it.paragraphs.filter(t => t.trim()).map(t => `<p>${esc(t.trim()).replace(/\n/g, '<br>')}</p>`).join('')}</div>`;
+  }
+  function essayEditHtml(it){
+    return `
+      <div class="field"><label>서평 제목</label><input type="text" class="rv-title" value="${esc(it.reviewTitle)}"></div>
+      ${ESSAY_PARAS.map((p, i) => `<div class="field"><label>${i + 1}문단 · ${p.title}</label><textarea class="rv-para" data-i="${i}" style="min-height:90px;">${esc(it.paragraphs[i])}</textarea></div>`).join('')}`;
+  }
+  function reviewBadge(it){
+    if(it.status === '확인완료') return '<span class="badge done">✅ 확인 완료</span>';
+    if(it.status === '수정요청') return '<span class="badge warn">↩️ 수정 요청함</span>';
+    return '<span class="badge pending">⏳ 확인 대기</span>';
+  }
+
+  function renderTeacherReview(){
+    const body = $('teacherBody');
+    if(!tEssays){ body.innerHTML = '<p class="empty-note">학년과 반을 골라주세요.</p>'; return; }
+    const c = tEssays.counts;
+    const items = tEssays.items.filter(it => FILTER_STATUS[tFilter].indexOf(it.status) >= 0);
+    body.innerHTML = `
+      <div class="subtabs">
+        ${REVIEW_FILTERS.map(f => `<button type="button" class="subtab${tFilter === f.key ? ' active' : ''}" data-filter="${f.key}">${f.label} ${f.count(c)}</button>`).join('')}
+      </div>
+      <p class="hint-line">${esc(classTitle(tEssays.grade, tEssays.cls))} · 아직 쓰는 중인 글 ${c.draft}편은 학생이 제출하면 여기에 나타나요.</p>
+      ${items.length === 0 ? '<p class="empty-note">이 목록에는 독서기록장이 없어요.</p>' : items.map(it => {
+        const key = essayKey(it);
+        const open = !!tEssayOpen[key];
+        const editing = !!tEssayEdit[key];
+        const confirmed = it.status === '확인완료';
+        return `
+          <div class="review-card${open ? ' open' : ''}" data-key="${esc(key)}">
+            <div class="review-head" data-toggle="${esc(key)}">
+              <span class="caret">›</span>
+              <span class="rv-who">${esc(it.num ? it.num + '번 ' : '')}${esc(it.name)}</span>
+              <span class="rv-book">『${esc(it.bookTitle)}』</span>
+              ${reviewBadge(it)}
+              ${it.teacherEdited ? '<span class="badge draft">✏️ 선생님이 고침</span>' : ''}
+              <span class="rv-date">${esc(it.date)} 다 읽음</span>
+            </div>
+            <div class="review-body">
+              ${editing ? essayEditHtml(it) : essayTextHtml(it)}
+              ${it.note || !editing ? `<div class="field" style="margin-top:12px;"><label>코멘트 <span class="opt">(학생에게 보여요${it.teacherName ? ' · 마지막: ' + esc(it.teacherName) + ' 선생님' : ''})</span></label><textarea class="rv-note" style="min-height:70px;">${esc(it.note)}</textarea></div>` : ''}
+              <div class="t-actions">
+                ${editing
+                  ? '<button class="btn-primary rv-save-edit" type="button">고친 글 저장</button><button class="btn-ghost rv-cancel-edit" type="button">취소</button>'
+                  : (confirmed
+                      ? '<button class="btn-ghost rv-comment" type="button">💬 코멘트만 저장</button><button class="btn-ghost rv-edit" type="button">✏️ 글 직접 고치기</button><button class="btn-ghost rv-reopen" type="button">확인 취소</button>'
+                      : '<button class="btn-primary rv-confirm" type="button">✅ 확인하기 (권수 +1)</button><button class="btn-ghost rv-revise" type="button">↩️ 수정 요청</button><button class="btn-ghost rv-comment" type="button">💬 코멘트만 저장</button><button class="btn-ghost rv-edit" type="button">✏️ 글 직접 고치기</button>')}
+              </div>
+            </div>
+          </div>`;
+      }).join('')}
+    `;
+    body.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => { tFilter = b.getAttribute('data-filter'); renderTeacherReview(); }));
+    body.querySelectorAll('.review-card').forEach(card => {
+      const key = card.getAttribute('data-key');
+      const it = tEssays.items.find(x => essayKey(x) === key);
+      const noteEl = () => card.querySelector('.rv-note');
+      const noteVal = () => noteEl() ? noteEl().value.trim() : '';
+      card.querySelector('.review-head').addEventListener('click', () => {
+        if(tEssayOpen[key]) delete tEssayOpen[key]; else tEssayOpen[key] = true;
+        card.classList.toggle('open', !!tEssayOpen[key]);
+      });
+      const on = (cls, fn) => { const b = card.querySelector(cls); if(b) b.addEventListener('click', fn); };
+      on('.rv-confirm', () => essayAct(it, 'confirm', { note: noteVal() }, `${it.name} 학생의 독서기록장을 확인했어요. 독서록 권수가 올라갔어요. ✅`));
+      on('.rv-revise', () => {
+        if(!noteVal()){ const el = $('teacherError'); el.textContent = '다시 쓸 부분을 코멘트에 적어주세요.'; el.style.display = 'block'; noteEl().focus(); return; }
+        essayAct(it, 'revise', { note: noteVal() }, `${it.name} 학생에게 고쳐 쓰라고 돌려보냈어요.`);
+      });
+      on('.rv-comment', () => {
+        if(!noteVal()){ const el = $('teacherError'); el.textContent = '코멘트를 적어주세요.'; el.style.display = 'block'; noteEl().focus(); return; }
+        essayAct(it, 'comment', { note: noteVal() }, '코멘트를 저장했어요. 학생에게 보여요. 💬');
+      });
+      on('.rv-reopen', () => essayAct(it, 'reopen', {}, '확인을 취소했어요. 권수가 되돌아갔어요.'));
+      on('.rv-edit', () => { tEssayEdit[key] = true; tEssayOpen[key] = true; renderTeacherReview(); });
+      on('.rv-cancel-edit', () => { delete tEssayEdit[key]; renderTeacherReview(); });
+      on('.rv-save-edit', () => {
+        const paras = [...card.querySelectorAll('.rv-para')].map(t => t.value);
+        delete tEssayEdit[key];
+        essayAct(it, 'edit', { paragraphs: paras, reviewTitle: card.querySelector('.rv-title').value, note: noteVal() }, '글을 고쳐서 저장했어요. 학생에게 "선생님이 고쳐 줬어요"로 보여요. ✏️');
+      });
+    });
+  }
+
+  async function essayAct(it, decision, extra, okMsg){
+    showTeacherMsg('');
+    const errEl = $('teacherError');
+    errEl.style.display = 'none';
+    try{
+      tEssays = await apiPost('teacherEssayAct', teacherParams(Object.assign({ row: it.row, decision: decision }, extra)));
+      tView = null;           // 권수가 바뀌었을 수 있으니 다음에 열 때 새로 불러온다
+      showTeacherMsg(okMsg);
+      renderTeacherBody();
+    }catch(err){
+      if(!handleTeacherError(err)){ showError(err, errEl, '처리하지 못했어요. 새로고침해서 다시 해주세요.'); renderTeacherReview(); }
+    }
+  }
+
+  // ---------- 손글씨 · 면제권 · 특이사항 ----------
+  function renderTeacherTools(){
+    const body = $('teacherBody');
+    if(!tView){ body.innerHTML = '<p class="loading">불러오는 중...</p>'; loadTeacherView().then(() => renderTeacherBody()).catch(() => { body.innerHTML = '<p class="error-text">불러오지 못했어요. 다시 시도해주세요.</p>'; }); return; }
     const rows = tView.rows;
     if(rows.length === 0){ body.innerHTML = '<p class="empty-note">이 반에는 등록된 학생이 없어요.</p>'; return; }
     const tool = TOOLS.find(t => t.key === tTool.type);
@@ -1327,6 +1816,7 @@
     body.innerHTML = `
       <div class="t-toolbar">
         <p class="tb-title">체크한 친구들에게 한꺼번에 기록하기</p>
+        <p class="hint-line">손으로 쓴 독서록은 같은 책(띄어쓰기가 달라도)을 한 권으로만 세요. 이미 권수에 들어간 책은 자동으로 건너뛰어요.</p>
         <div class="t-types">
           ${TOOLS.map(t => `<button type="button" class="t-type${t.key === tTool.type ? ' active' : ''}" data-ttype="${t.key}">${t.label}</button>`).join('')}
         </div>
@@ -1372,7 +1862,7 @@
     checkApply();
 
     body.querySelectorAll('.t-type').forEach(b => b.addEventListener('click', () => {
-      tTool.type = b.getAttribute('data-ttype'); tTool.text = ''; renderTeacherBody();
+      tTool.type = b.getAttribute('data-ttype'); tTool.text = ''; renderTeacherTools();
     }));
     $('tText').addEventListener('input', e => { tTool.text = e.target.value; checkApply(); });
     $('tDate').addEventListener('change', e => {
@@ -1394,15 +1884,15 @@
     body.querySelectorAll('.t-more').forEach(b => b.addEventListener('click', () => {
       const nm = b.getAttribute('data-name');
       if(tOpen[nm]) delete tOpen[nm]; else tOpen[nm] = true;
-      renderTeacherBody();
+      renderTeacherTools();
     }));
     body.querySelectorAll('.t-cancel').forEach(b => b.addEventListener('click', async () => {
       showTeacherMsg('');
       $('teacherError').style.display = 'none';
       try{
-        tView = await apiPost('teacherLogCancel', Object.assign({ teacherCode: teacherCode, row: Number(b.getAttribute('data-row')) }, { grade: tView.grade, cls: tView.cls }));
+        tView = await apiPost('teacherLogCancel', teacherParams({ row: Number(b.getAttribute('data-row')) }));
         showTeacherMsg('기록을 취소했어요.');
-        renderTeacherBody();
+        renderTeacherTools();
       }catch(err){
         if(!handleTeacherError(err)) showError(err, $('teacherError'), '취소하지 못했어요. 다시 시도해주세요.');
       }
@@ -1414,14 +1904,17 @@
       showTeacherMsg('');
       $('teacherError').style.display = 'none';
       try{
-        tView = await apiPost('teacherLogAdd', {
-          teacherCode: teacherCode, grade: tView.grade, cls: tView.cls,
-          type: tTool.type, text: tTool.text.trim(), date: tTool.date, names: names
-        });
+        tView = await apiPost('teacherLogAdd', teacherParams({ type: tTool.type, text: tTool.text.trim(), date: tTool.date, names: names }));
+        const skipped = tView.skipped || [];
+        const added = tView.addedCount != null ? tView.addedCount : names.length;
         tChecked = {};
         tTool.text = '';
-        showTeacherMsg(`${names.length}명에게 "${tool.label.replace(/^\S+\s/, '')}"을(를) 기록했어요. ✅`);
-        renderTeacherBody();
+        let msg = added > 0
+          ? `${added}명에게 "${tool.label.replace(/^\S+\s/, '')}"을(를) 기록했어요. ✅`
+          : '기록한 친구가 없어요.';
+        if(skipped.length) msg += ` 이미 권수에 들어간 책이라 건너뛴 친구: ${skipped.join(', ')}`;
+        showTeacherMsg(msg);
+        renderTeacherTools();
       }catch(err){
         if(!handleTeacherError(err)){ showError(err, $('teacherError'), '기록하지 못했어요. 다시 시도해주세요.'); checkApply(); }
       }
@@ -1436,6 +1929,7 @@
       const target = tab.getAttribute('data-tab');
       $('panel-' + target).classList.add('active');
       document.body.setAttribute('data-tab', target);
+      stopSpeak();
       if(target === 'board'){
         if(boardPicker && me && !boardPicker.touched && hasClassInfo()){
           boardPicker.gv = toVal(me.grade); boardPicker.cv = toVal(me.cls);
