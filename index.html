@@ -17,6 +17,7 @@
     --accent:#3B5D45;
     --accent-soft:#DCE6DC;
     --gold:#C68A3D;
+    --gold-soft:#F5E9D6;
     --danger:#A8442E;
   }
   *{box-sizing:border-box;}
@@ -51,12 +52,25 @@
     font-size:clamp(26px,5vw,34px); line-height:1.25;
     margin:0 0 10px; max-width:90%;
   }
-  .masthead .sub{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0; max-width:48ch; }
+  .masthead .sub{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0; max-width:52ch; }
 
-  .tabs{ display:flex; gap:4px; margin:26px 0 0; padding-left:4px; }
+  /* 학년 · 반 · 이름 고르기 */
+  .who-bar{
+    margin-top:18px;
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px;
+  }
+  .who-bar .who-title{ font-size:13px; color:var(--ink-soft); margin:0 0 10px; }
+  .picker{ display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:10px; }
+  .picker.no-name{ grid-template-columns:1fr 1fr; max-width:420px; }
+  .pk-field label{ margin-bottom:4px; }
+  select:disabled{ background:#F4F1E6; color:#9A9184; }
+  body[data-tab="board"] .who-bar, body[data-tab="teacher"] .who-bar{ display:none; }
+
+  .tabs{ display:flex; gap:4px; margin:20px 0 0; padding-left:4px; flex-wrap:wrap; }
   .tab{
     position:relative; top:1px;
-    padding:10px 20px;
+    padding:10px 18px;
     border:1px solid var(--ink); border-bottom:none;
     border-radius:8px 8px 0 0;
     background:var(--bg); color:var(--ink-soft);
@@ -67,7 +81,7 @@
   .tab-panel{ display:none; }
   .tab-panel.active{ display:block; }
 
-  /* 처음 설정 / 학급 코드 / 오류 안내 */
+  /* 처음 설정 / 입장 코드 / 오류 안내 */
   .gate-card{
     display:none;
     margin-top:26px;
@@ -75,12 +89,13 @@
     padding:28px 26px; max-width:520px;
   }
   body.gated .gate-card{ display:block; }
-  body.gated .tabs, body.gated .panel-wrap{ display:none; }
+  body.gated .tabs, body.gated .panel-wrap, body.gated .who-bar{ display:none; }
   .gate-card h2{ font-family:'Fraunces', serif; font-size:20px; margin:0 0 10px; }
   .gate-card p{ font-size:14.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
   .gate-card code{ background:#EFEBDD; padding:2px 6px; border-radius:4px; font-size:13px; }
 
   label{ display:block; font-size:13px; color:var(--ink-soft); margin-bottom:6px; }
+  label .opt{ font-weight:400; opacity:0.8; }
   select, input[type=text], input[type=date], textarea{
     width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:6px;
     background:#fff; font-family:'Work Sans', sans-serif; font-size:15px; color:var(--ink);
@@ -88,9 +103,8 @@
   select:focus, input:focus, textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; }
   textarea{ min-height:100px; resize:vertical; line-height:1.6; }
   .field{ margin-bottom:18px; }
-  .field-row{ display:grid; grid-template-columns:1fr 1fr 110px; gap:10px; }
-  .field-row .field{ margin-bottom:0; }
-  .field-row-wrap{ margin-bottom:18px; }
+  .field-row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .field-row2 .field{ margin-bottom:18px; }
 
   button{ font-family:'Work Sans', sans-serif; cursor:pointer; }
   .btn-primary{ background:var(--accent); color:#fff; border:none; padding:12px 22px; border-radius:6px; font-weight:600; font-size:15px; }
@@ -103,7 +117,8 @@
     border:1px dashed var(--accent); background:var(--accent-soft); color:var(--accent);
     border-radius:8px; padding:10px 14px; font-size:13.5px; margin:0 0 18px;
   }
-  .hint-line{ font-size:12.5px; color:var(--ink-soft); margin:0 0 6px; }
+  .note-box.warn{ border-color:var(--danger); background:#F3E2DD; color:var(--danger); }
+  .hint-line{ font-size:12.5px; color:var(--ink-soft); margin:0 0 8px; line-height:1.6; }
   .save-msg{ font-size:13.5px; color:var(--accent); margin-top:10px; display:none; }
   .save-msg.show{ display:block; }
   .loading, .error-text{ font-size:14px; color:var(--ink-soft); padding:12px 0; margin:0; }
@@ -123,42 +138,78 @@
   .past-meta{ font-size:12.5px; color:var(--ink-soft); margin-bottom:8px; }
   .past-label{ font-size:12px; font-weight:600; color:var(--ink-soft); margin:10px 0 2px; }
   .past-text{ font-size:14px; line-height:1.65; white-space:pre-wrap; }
-  .essay-body p{ margin:0 0 10px; font-size:14.5px; line-height:1.85; text-indent:1em; }
-  .essay-body p:last-child{ margin-bottom:0; }
   .past-card .btn-ghost{ margin-top:10px; }
+  .badge{ font-size:12px; padding:4px 11px; border-radius:20px; white-space:nowrap; }
+  .badge.done{ background:var(--accent-soft); color:var(--accent); font-weight:600; }
+  .badge.pending{ background:transparent; color:var(--ink-soft); border:1px solid var(--line); }
+  .badge.draft{ background:var(--gold-soft); color:var(--gold); font-weight:600; }
 
-  /* 독서록 5문단 */
-  .essay-para label{ display:flex; align-items:center; gap:8px; color:var(--ink); font-weight:600; font-size:14px; }
+  /* 독서기록장 (서평 5문단) */
+  .essay-body{ margin-top:8px; }
+  .essay-body p{ margin:0 0 10px; font-size:14.5px; line-height:1.9; text-indent:1em; }
+  .essay-body p:last-child{ margin-bottom:0; }
+  .essay-headline{ font-family:'Fraunces', serif; font-size:18px; font-weight:600; line-height:1.4; margin:4px 0 2px; }
+
+  .title-card, .para-card{
+    border:1px solid var(--line); border-radius:10px; background:#fff;
+    padding:16px 18px 18px; margin-bottom:16px;
+  }
+  .title-card{ background:var(--surface-alt); }
+  .card-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .card-head h3{ font-family:'Fraunces', serif; font-size:16.5px; font-weight:600; margin:0; flex:1; }
   .para-num{
     display:inline-flex; align-items:center; justify-content:center;
-    width:22px; height:22px; border-radius:50%;
-    background:var(--accent); color:#fff; font-size:12px; font-weight:600; flex-shrink:0;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--accent); color:#fff; font-size:13px; font-weight:600; flex-shrink:0;
   }
-  .essay-para textarea{ min-height:92px; }
+  .para-count{ font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+  .para-card.filled .para-num::after{ content:""; }
+  .para-card.filled{ border-color:var(--accent); }
+  .para-guide{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); margin:0 0 10px; }
 
-  /* 독서록 기록 선택 / 확인 상태 */
-  .type-toggle{ display:flex; gap:8px; }
-  .type-btn{
-    flex:1; padding:12px 8px; border:1px solid var(--line); border-radius:8px;
-    background:#fff; color:var(--ink-soft); font-size:14px; font-weight:500; text-align:center;
+  details.tip{ margin:0 0 8px; border:1px solid var(--line); border-radius:8px; background:var(--surface-alt); }
+  details.tip summary{ cursor:pointer; font-size:13px; font-weight:600; color:var(--accent); padding:8px 12px; list-style:none; }
+  details.tip summary::-webkit-details-marker{ display:none; }
+  details.tip summary::before{ content:'▸  '; }
+  details.tip[open] summary::before{ content:'▾  '; }
+  details.tip .tip-body{ padding:2px 14px 12px; font-size:13.5px; line-height:1.75; }
+  .tip-body .frame{ background:#fff; border:1px dashed var(--line); border-radius:6px; padding:8px 12px; margin:6px 0; }
+  .tip-body .ex-label{ display:inline-block; font-size:11.5px; font-weight:600; color:var(--gold); background:var(--gold-soft); border-radius:10px; padding:1px 8px; margin-right:6px; }
+  .tip-body ul{ margin:6px 0 0; padding-left:18px; }
+  .tip-body li{ margin-bottom:4px; }
+  .tip-body dl{ margin:6px 0 0; }
+  .tip-body dt{ font-weight:600; margin-top:8px; }
+  .tip-body dd{ margin:2px 0 0 0; color:var(--ink-soft); }
+  .tip-body .ex-text{ margin-top:2px; color:var(--ink); }
+  .tip-body .cat{ font-weight:600; margin:8px 0 4px; font-size:13px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .word-chip{
+    border:1px solid var(--line); background:#fff; color:var(--ink);
+    border-radius:20px; padding:3px 10px; font-size:12.5px;
   }
-  .type-btn.active{ border-color:var(--accent); background:var(--accent-soft); color:var(--accent); font-weight:600; }
-  .type-tag{ display:inline-block; font-size:12px; color:var(--gold); background:#F5E9D6; padding:2px 9px; border-radius:20px; font-weight:600; margin-right:6px; }
-  .badge.warn{ background:#F3E2DD; color:var(--danger); border:none; }
-  .teacher-memo{ font-size:13px; color:var(--danger); margin-top:6px; }
+  .word-chip:hover{ border-color:var(--accent); color:var(--accent); }
 
-  /* 선생님 */
-  .teacher-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; flex-wrap:wrap; }
-  .teacher-head p{ margin:0; font-size:13px; color:var(--ink-soft); }
-  .teacher-card{ border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:12px; background:#fff; }
-  .teacher-card input[type=text]{ margin-top:10px; }
-  .t-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-  .t-section-title{ font-family:'Fraunces', serif; font-size:16px; font-weight:600; margin:22px 0 10px; }
-  .teacher-login{ max-width:420px; }
-  .teacher-login .note-box{ margin-bottom:14px; }
+  textarea.lined{
+    min-height:150px; padding:6px 14px; line-height:30px; font-size:15px;
+    background-color:#fff;
+    background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 29px, rgba(43,38,32,0.14) 29px, rgba(43,38,32,0.14) 30px);
+    background-position:0 6px; background-attachment:local;
+  }
+
+  .save-bar{
+    position:sticky; bottom:0; z-index:5;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    background:var(--surface); border-top:1px solid var(--ink);
+    margin:8px -26px -28px; padding:12px 26px;
+  }
+  .save-bar .progress{ font-size:13px; color:var(--ink-soft); flex:1; min-width:140px; }
+  .save-bar .progress b{ color:var(--accent); }
+  .save-bar .save-msg{ width:100%; margin:0; }
+  .save-bar .error-text{ width:100%; padding:0; }
 
   /* 현황판 */
-  .date-nav{ display:flex; align-items:center; gap:8px; margin-bottom:8px; max-width:420px; }
+  .board-top{ display:flex; gap:18px; align-items:flex-end; flex-wrap:wrap; margin-bottom:8px; }
+  .date-nav{ display:flex; align-items:center; gap:8px; width:300px; max-width:100%; }
   .date-nav input[type=date]{ flex:1; }
   .link-btn{ font-size:12.5px; color:var(--accent); background:none; border:none; font-weight:600; padding:0; margin:0 14px 18px 0; }
   .subtabs{ display:flex; gap:8px; margin:6px 0 20px; flex-wrap:wrap; }
@@ -178,9 +229,7 @@
   .student-row.clickable{ cursor:pointer; }
   .student-row .left{ display:flex; align-items:center; gap:10px; min-width:0; }
   .student-row .name{ font-family:'Fraunces', serif; font-size:16px; font-weight:500; white-space:nowrap; }
-  .badge{ font-size:12px; padding:4px 11px; border-radius:20px; white-space:nowrap; }
-  .badge.done{ background:var(--accent-soft); color:var(--accent); font-weight:600; }
-  .badge.pending{ background:transparent; color:var(--ink-soft); border:1px solid var(--line); }
+  .student-row .num{ font-size:12px; color:var(--ink-soft); min-width:22px; }
   .caret{ color:var(--ink-soft); font-size:14px; transition:transform 0.15s ease; }
   .student-block.open .caret{ transform:rotate(90deg); }
   .student-detail{ display:none; background:var(--surface-alt); padding:12px 18px 16px; border-bottom:1px solid var(--line); }
@@ -196,6 +245,37 @@
   .chip{ font-size:12.5px; color:var(--ink-soft); background:#EFEBDD; padding:3px 10px; border-radius:20px; }
   .books-row{ display:block; }
   .books-row .top{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .books-row .sub{ font-size:12px; color:var(--ink-soft); margin-top:2px; }
+
+  /* 교사용 설정 */
+  .teacher-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .teacher-head p{ margin:0; font-size:13px; color:var(--ink-soft); line-height:1.6; max-width:60ch; }
+  .teacher-login{ max-width:420px; }
+  .t-toolbar{ border:1px solid var(--ink); border-radius:10px; background:var(--surface-alt); padding:16px 18px 6px; margin-bottom:16px; }
+  .t-toolbar .tb-title{ font-family:'Fraunces', serif; font-size:15.5px; font-weight:600; margin:0 0 10px; }
+  .t-types{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .t-type{
+    padding:9px 14px; border:1px solid var(--line); border-radius:20px; background:#fff;
+    color:var(--ink-soft); font-size:13.5px; font-weight:500;
+  }
+  .t-type.active{ border-color:var(--accent); background:var(--accent-soft); color:var(--accent); font-weight:600; }
+  .t-tool-grid{ display:grid; grid-template-columns:1fr 180px; gap:12px; }
+  .t-table{ border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .t-head, .t-row{ display:grid; grid-template-columns:34px 34px 1fr 1.5fr 0.8fr 0.8fr 78px; gap:8px; align-items:center; padding:10px 14px; }
+  .t-head{ background:var(--surface-alt); font-size:12px; color:var(--ink-soft); font-weight:600; border-bottom:1px solid var(--line); }
+  .t-row{ background:var(--surface); border-bottom:1px solid var(--line); font-size:14px; }
+  .t-block:last-child .t-row{ border-bottom:none; }
+  .t-row .t-name{ font-family:'Fraunces', serif; font-size:15.5px; font-weight:500; }
+  .t-row .t-num{ font-size:12px; color:var(--ink-soft); }
+  .t-row small{ color:var(--ink-soft); }
+  .t-row b{ color:var(--accent); }
+  .t-check{ width:18px; height:18px; accent-color:var(--accent); }
+  .t-logs{ display:none; background:var(--surface-alt); padding:8px 18px 12px 60px; border-bottom:1px solid var(--line); }
+  .t-block.open .t-logs{ display:block; }
+  .t-log{ display:flex; gap:10px; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px dashed var(--line); font-size:13.5px; }
+  .t-log:last-child{ border-bottom:none; }
+  .t-log.cancelled{ color:#9A9184; text-decoration:line-through; }
+  .t-log .tl-type{ font-weight:600; margin-right:6px; }
 
   @media (max-width:860px){
     .page{ padding:24px 14px 60px; }
@@ -203,80 +283,86 @@
     .split-side{ border-left:none; padding-left:0; position:static; max-height:none; overflow:visible; border-top:1px solid var(--line); margin-top:30px; padding-top:22px; }
     .masthead{ padding:22px 18px; }
     .panel-wrap{ padding:20px 18px; }
-    .tab{ padding:9px 14px; font-size:13px; }
-    .field-row{ grid-template-columns:1fr 1fr; }
-    .field-row .field:last-child{ grid-column:1 / -1; }
+    .save-bar{ margin:8px -18px -20px; padding:12px 18px; }
+    .tab{ padding:9px 12px; font-size:13px; }
+    .picker{ grid-template-columns:1fr 1fr; }
+    .picker .pk-name{ grid-column:1 / -1; }
+    .t-tool-grid{ grid-template-columns:1fr; }
+    .t-head{ display:none; }
+    .t-row{ grid-template-columns:30px 1fr auto; row-gap:4px; }
+    .t-row .t-num{ display:none; }
+    .t-row .t-stat{ grid-column:2 / -1; font-size:13px; }
+    .t-logs{ padding-left:18px; }
   }
 </style>
 </head>
-<body>
+<body data-tab="record">
 <div class="page">
 
   <header class="masthead">
     <p class="today" id="todayLabel"></p>
     <h1>매일 독서기록</h1>
-    <p class="sub">독서기록과 독서록을 남기고, 현황판에서 우리 반 기록을 확인해요.</p>
+    <p class="sub">학년과 반, 이름을 고르고 오늘 읽은 책을 기록해요. 다 읽은 책은 독서기록장에 서평으로 남겨요.</p>
   </header>
 
   <div class="gate-card" id="gate"></div>
 
+  <div class="who-bar" id="whoBar">
+    <p class="who-title">나는 누구일까요? 학년 · 반 · 이름을 골라요.</p>
+    <div id="whoSlot"></div>
+  </div>
+
   <nav class="tabs">
-    <button class="tab active" data-tab="record">독서기록</button>
-    <button class="tab" data-tab="essay">독서록</button>
+    <button class="tab active" data-tab="record">매일 독서기록</button>
+    <button class="tab" data-tab="essay">독서기록장</button>
     <button class="tab" data-tab="board">현황판</button>
-    <button class="tab" data-tab="teacher">선생님</button>
+    <button class="tab" data-tab="teacher">교사용 설정</button>
   </nav>
 
   <div class="panel-wrap">
 
-    <!-- 독서기록: 날짜, 책 이름, 챕터, 줄거리, 느낀 점 -->
+    <!-- 매일 독서기록: 날짜, 책 이름, 읽은 챕터(쪽수), 줄거리, 느낀 점 -->
     <section class="tab-panel active" id="panel-record">
       <div class="split">
-        <div class="split-main">
-          <div class="field">
-            <label for="nameSelectRecord">이름</label>
-            <select id="nameSelectRecord"><option value="">이름을 선택하세요</option></select>
-          </div>
-          <div id="recordFormArea"><p class="empty-note">먼저 이름을 선택해주세요.</p></div>
-        </div>
+        <div class="split-main"><div id="recordFormArea"><p class="empty-note">먼저 위에서 학년, 반, 이름을 골라주세요.</p></div></div>
         <aside class="split-side" id="recordHistoryArea"></aside>
       </div>
     </section>
 
-    <!-- 독서록: 책 이름, 출판사, 지은이, 쪽수 + 5문단 / 옆에 지난 독서록 -->
+    <!-- 독서기록장: 책 이름, 다 읽은 날짜, 서평 5문단 / 옆에 완성된 글 -->
     <section class="tab-panel" id="panel-essay">
       <div class="split">
-        <div class="split-main">
-          <div class="field">
-            <label for="nameSelectEssay">이름</label>
-            <select id="nameSelectEssay"><option value="">이름을 선택하세요</option></select>
-          </div>
-          <div id="essayFormArea"><p class="empty-note">먼저 이름을 선택해주세요.</p></div>
-        </div>
+        <div class="split-main"><div id="essayFormArea"><p class="empty-note">먼저 위에서 학년, 반, 이름을 골라주세요.</p></div></div>
         <aside class="split-side" id="essayHistoryArea"></aside>
       </div>
     </section>
 
-    <!-- 현황판: 낸 사람 / 낸 횟수 / 독서록 권수, 날짜별 확인 -->
+    <!-- 현황판: 학년·반별 독서록 권수 / 매일 독서기록 횟수 / 날짜별 현황 -->
     <section class="tab-panel" id="panel-board">
-      <div class="date-nav">
-        <button class="btn-icon" id="prevDayBtn" type="button">‹</button>
-        <input type="date" id="boardDateInput">
-        <button class="btn-icon" id="nextDayBtn" type="button">›</button>
+      <div class="board-top">
+        <div id="boardPickerSlot"></div>
+        <div>
+          <label>날짜</label>
+          <div class="date-nav">
+            <button class="btn-icon" id="prevDayBtn" type="button">‹</button>
+            <input type="date" id="boardDateInput">
+            <button class="btn-icon" id="nextDayBtn" type="button">›</button>
+          </div>
+        </div>
       </div>
       <div>
         <button class="link-btn" id="jumpTodayBtn" type="button">오늘로 이동</button>
         <button class="link-btn" id="refreshBoardBtn" type="button">↻ 새로고침</button>
       </div>
       <div class="subtabs" id="boardSubtabs">
-        <button class="subtab active" data-sub="today" type="button">오늘 낸 사람</button>
-        <button class="subtab" data-sub="count" type="button">낸 횟수</button>
-        <button class="subtab" data-sub="books" type="button">독서록 권수</button>
+        <button class="subtab active" data-sub="books" type="button">독서록 권수</button>
+        <button class="subtab" data-sub="count" type="button">매일 독서기록 횟수</button>
+        <button class="subtab" data-sub="date" type="button">날짜별 현황</button>
       </div>
       <div id="boardArea"><p class="loading">불러오는 중...</p></div>
     </section>
 
-    <!-- 선생님: 공책/면제권 확인, 직접 권수 추가 -->
+    <!-- 교사용 설정: 손으로 쓴 독서록 체크, 면제권 사용, 특이사항 -->
     <section class="tab-panel" id="panel-teacher">
       <div id="teacherArea"></div>
     </section>
@@ -287,7 +373,7 @@
 <script>
 (function(){
   // ★★★ 여기에 Apps Script 웹 앱 주소(/exec 로 끝나는 주소)를 붙여넣으세요. ★★★
-  const API_URL = 'PASTE_YOUR_WEB_APP_URL_HERE';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyAkqylJ1h_5Q8YJ8pnL0oEtSgIqWKN63Tb8d8FEy2eWOAr7dPPiqBz9wMfSgRp-rZc1Q/exec';
 
   // ---------- 작은 도구들 ----------
   const $ = id => document.getElementById(id);
@@ -301,10 +387,7 @@
     const p = s.split('-').map(Number);
     return new Date(p[0], p[1]-1, p[2]).toLocaleDateString('ko-KR', { month:'long', day:'numeric', weekday:'short' });
   }
-  function fmtShort(s){
-    const p = s.split('-').map(Number);
-    return p[1] + '/' + p[2];
-  }
+  function fmtShort(s){ const p = s.split('-').map(Number); return p[1] + '/' + p[2]; }
   function addDays(s, delta){
     const p = s.split('-').map(Number);
     const d = new Date(p[0], p[1]-1, p[2]);
@@ -353,7 +436,7 @@
     el.style.display = 'block';
   }
 
-  // ---------- 처음 설정 / 학급 코드 / 연결 오류 화면 ----------
+  // ---------- 처음 설정 / 입장 코드 / 연결 오류 화면 ----------
   function showGate(kind, extra){
     const g = $('gate');
     document.body.classList.add('gated');
@@ -365,9 +448,9 @@
       `;
     } else if(kind === 'code'){
       g.innerHTML = `
-        <h2>학급 코드를 입력해주세요</h2>
+        <h2>입장 코드를 입력해주세요</h2>
         <p>${extra === 'wrong' ? '코드가 맞지 않아요. 선생님께 다시 확인해보세요.' : '선생님께서 알려주신 코드를 입력하면 들어갈 수 있어요.'}</p>
-        <div class="field"><input type="text" id="gateCodeInput" placeholder="학급 코드" autocomplete="off"></div>
+        <div class="field"><input type="text" id="gateCodeInput" placeholder="입장 코드" autocomplete="off"></div>
         <button class="btn-primary" id="gateCodeBtn" type="button">들어가기</button>
       `;
       const input = $('gateCodeInput');
@@ -391,20 +474,104 @@
   function hideGate(){ document.body.classList.remove('gated'); }
 
   // ---------- 공통 상태 ----------
-  let roster = [];
+  let roster = [];       // [{grade, cls, num, name}] (시트에 적은 순서 그대로)
   let books = [];
   let currentBook = '';
-  let currentName = '';
-  let entries = [];   // 내 독서기록 (최신 날짜 먼저)
-  let essays = [];    // 내 독서록 (최근 저장 먼저)
+  let me = null;         // 고른 학생 (roster의 한 줄)
+  let entries = [];      // 내 매일 독서기록 (최신 날짜 먼저)
+  let essays = [];       // 내 독서기록장 (최근 저장 먼저)
 
-  const ESSAY_PARAS = [
-    { label: '책 소개', placeholder: '어떤 책인지 소개해 보세요. (제목, 지은이, 책을 읽게 된 까닭 등)' },
-    { label: '줄거리 소개', placeholder: '책의 줄거리를 간단히 소개해 보세요.' },
-    { label: '인상 깊은 부분과 그 이유', placeholder: '가장 인상 깊었던 부분은 어디인가요? 그 이유도 함께 써 보세요.' },
-    { label: '이 책의 좋은 점', placeholder: '이 책의 좋은 점을 써 보세요.' },
-    { label: '책에 대한 평가 또는 추천', placeholder: '책에 대한 평가나, 친구에게 추천하고 싶은 까닭을 써 보세요.' }
-  ];
+  function studentParams(st){ st = st || me; return { grade: st.grade, cls: st.cls, name: st.name }; }
+
+  // =====================================================
+  // 학년 > 반 > 이름 고르기
+  // =====================================================
+  const NONE = '__none__';
+  const toVal = x => x === '' ? NONE : x;
+  const fromVal = v => v === NONE ? '' : v;
+  function uniq(list){ const out = []; list.forEach(x => { if(out.indexOf(x) < 0) out.push(x); }); return out; }
+  function hasClassInfo(){ return roster.some(s => s.grade || s.cls); }
+  function gradesOf(){ return uniq(roster.map(s => s.grade)); }
+  function classesOf(g){ return uniq(roster.filter(s => s.grade === g).map(s => s.cls)); }
+  function gradeLabel(g){ return g ? g + '학년' : '학년 미지정'; }
+  function classLabel(c){ return c ? c + '반' : '반 미지정'; }
+  function studentLabel(s){ return (s.num ? s.num + '번 ' : '') + s.name; }
+  function classTitle(g, c){ return (g || c) ? gradeLabel(g) + ' ' + classLabel(c) : '전체'; }
+
+  const LAST_CLASS_KEY = 'readinglog.lastClass';
+  function rememberClass(p){
+    if(!p.gv || !p.cv) return;
+    try{ localStorage.setItem(LAST_CLASS_KEY, JSON.stringify({ gv: p.gv, cv: p.cv })); }catch(e){}
+  }
+  function validClass(gv, cv){
+    return roster.some(s => toVal(s.grade) === gv && toVal(s.cls) === cv);
+  }
+  function lastClass(){
+    try{
+      const o = JSON.parse(localStorage.getItem(LAST_CLASS_KEY) || 'null');
+      if(o && validClass(o.gv, o.cv)) return o;
+    }catch(e){}
+    return null;
+  }
+  // 아직 반을 안 골랐으면: 내가 고른 반 > 지난번에 고른 반 > 명단 첫 반 순서로 정한다
+  function defaultClassFor(p, allowFirst){
+    if(!hasClassInfo() || (p.gv && p.cv)) return;
+    if(me){ p.gv = toVal(me.grade); p.cv = toVal(me.cls); return; }
+    const l = lastClass();
+    if(l){ p.gv = l.gv; p.cv = l.cv; return; }
+    if(allowFirst && roster.length){ p.gv = toVal(roster[0].grade); p.cv = toVal(roster[0].cls); }
+  }
+  // 선택칸을 새로 그린다 (이벤트가 두 번 붙지 않게 항상 새로 그린 뒤 붙인다)
+  function remountPicker(p, slotId){
+    $(slotId).innerHTML = p.html();
+    p.mount();
+  }
+
+  function makePicker(id, withName, onChange){
+    const p = { id: id, withName: withName, gv: '', cv: '', idx: -1, onChange: onChange };
+    p.html = () => `
+      <div class="picker${withName ? '' : ' no-name'}" id="${id}Box">
+        <div class="pk-field pk-grade"><label for="${id}Grade">학년</label><select id="${id}Grade"></select></div>
+        <div class="pk-field pk-class"><label for="${id}Class">반</label><select id="${id}Class"></select></div>
+        ${withName ? `<div class="pk-field pk-name"><label for="${id}Name">이름</label><select id="${id}Name"></select></div>` : ''}
+      </div>`;
+    p.student = () => p.idx >= 0 ? roster[p.idx] : null;
+    p.classInfo = () => (p.gv && p.cv) ? { grade: fromVal(p.gv), cls: fromVal(p.cv) } : null;
+    p.mount = () => {
+      const gSel = $(id + 'Grade'), cSel = $(id + 'Class'), nSel = withName ? $(id + 'Name') : null;
+      const classMode = hasClassInfo();
+      gSel.parentElement.style.display = classMode ? '' : 'none';
+      cSel.parentElement.style.display = classMode ? '' : 'none';
+      function fill(){
+        if(classMode){
+          const grades = gradesOf();
+          if(!p.gv && grades.length === 1) p.gv = toVal(grades[0]);
+          gSel.innerHTML = '<option value="">학년 선택</option>' + grades.map(g =>
+            `<option value="${esc(toVal(g))}"${toVal(g) === p.gv ? ' selected' : ''}>${esc(gradeLabel(g))}</option>`).join('');
+          const classes = p.gv ? classesOf(fromVal(p.gv)) : [];
+          if(p.gv && !p.cv && classes.length === 1) p.cv = toVal(classes[0]);
+          cSel.innerHTML = '<option value="">반 선택</option>' + classes.map(c =>
+            `<option value="${esc(toVal(c))}"${toVal(c) === p.cv ? ' selected' : ''}>${esc(classLabel(c))}</option>`).join('');
+          cSel.disabled = !p.gv;
+        }
+        if(nSel){
+          const ready = !classMode || (p.gv && p.cv);
+          const list = [];
+          if(ready) roster.forEach((s, i) => {
+            if(!classMode || (toVal(s.grade) === p.gv && toVal(s.cls) === p.cv)) list.push({ s: s, i: i });
+          });
+          nSel.innerHTML = '<option value="">이름 선택</option>' + list.map(x =>
+            `<option value="${x.i}"${x.i === p.idx ? ' selected' : ''}>${esc(studentLabel(x.s))}</option>`).join('');
+          nSel.disabled = !ready;
+        }
+      }
+      gSel.addEventListener('change', () => { p.gv = gSel.value; p.cv = ''; p.idx = -1; p.touched = true; fill(); p.onChange(p); });
+      cSel.addEventListener('change', () => { p.cv = cSel.value; p.idx = -1; p.touched = true; fill(); rememberClass(p); p.onChange(p); });
+      if(nSel) nSel.addEventListener('change', () => { p.idx = nSel.value === '' ? -1 : Number(nSel.value); p.onChange(p); });
+      fill();
+    };
+    return p;
+  }
 
   // ---------- 책 선택칸 (Books 시트 목록 + 직접 입력) ----------
   function bookFieldHtml(id, labelHtml, value){
@@ -447,34 +614,26 @@
     input.addEventListener('input', () => onChange(input.value));
   }
 
-  // ---------- 이름 선택 (두 탭의 선택칸을 같이 움직임) ----------
-  const nameSelects = [$('nameSelectRecord'), $('nameSelectEssay')];
+  // ---------- 고른 학생 불러오기 ----------
+  const whoPicker = makePicker('who', true, p => selectStudent(p.student()));
 
-  function fillRosterSelects(){
-    const html = '<option value="">이름을 선택하세요</option>' +
-      roster.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
-    nameSelects.forEach(s => { s.innerHTML = html; s.value = currentName; });
-  }
-  nameSelects.forEach(s => s.addEventListener('change', () => selectStudent(s.value)));
-
-  async function selectStudent(name){
-    currentName = name;
-    nameSelects.forEach(s => { s.value = name; });
+  async function selectStudent(st){
+    me = st;
     entries = [];
     essays = [];
     recordDate = TODAY;
     recordDraft = freshRecordDraft();
     essayDraft = freshEssayDraft();
-
-    if(!name){
+    essayNote = '';
+    if(!st){
       renderRecordForm(); renderRecordHistory(); renderEssayForm(); renderEssayHistory();
       return;
     }
     $('recordFormArea').innerHTML = '<p class="loading">불러오는 중...</p>';
     $('essayFormArea').innerHTML = '<p class="loading">불러오는 중...</p>';
     try{
-      const d = await apiGet('getStudentData', { name: name });
-      if(currentName !== name) return; // 그 사이 다른 이름으로 바뀐 경우
+      const d = await apiGet('getStudentData', studentParams(st));
+      if(me !== st) return; // 그 사이 다른 학생으로 바뀐 경우
       entries = d.entries;
       essays = d.essays;
       recordDraft = freshRecordDraft();
@@ -489,7 +648,7 @@
   }
 
   // =====================================================
-  // 독서기록 (날짜, 책 이름, 챕터, 줄거리, 느낀 점)
+  // 매일 독서기록 (날짜, 책 이름, 읽은 챕터(쪽수), 줄거리, 느낀 점)
   // =====================================================
   let recordDate = TODAY;
   let recordDraft = freshRecordDraft();
@@ -516,8 +675,8 @@
 
   function renderRecordForm(){
     const area = $('recordFormArea');
-    if(!currentName){
-      area.innerHTML = '<p class="empty-note">먼저 이름을 선택해주세요.</p>';
+    if(!me){
+      area.innerHTML = '<p class="empty-note">먼저 위에서 학년, 반, 이름을 골라주세요.</p>';
       return;
     }
     const d = recordDraft;
@@ -529,16 +688,16 @@
       <p class="note-box" id="recordLoadedNote" style="display:${d.loaded ? 'block' : 'none'};">이 날짜에 쓴 기록을 불러왔어요. 저장하면 수정돼요.</p>
       ${bookFieldHtml('recordBook', '책 이름', d.book)}
       <div class="field">
-        <label for="recordChapter">챕터(쪽수)</label>
+        <label for="recordChapter">읽은 챕터(쪽수)</label>
         <input type="text" id="recordChapter" placeholder="예: 3장 또는 45~60쪽" value="${esc(d.chapter)}">
       </div>
       <div class="field">
         <label for="recordSummary">줄거리</label>
-        <textarea id="recordSummary" placeholder="읽은 부분의 줄거리를 3~4문장으로 적어보세요.">${esc(d.summary)}</textarea>
+        <textarea id="recordSummary" placeholder="읽은 부분의 줄거리를 간단히 적어요.">${esc(d.summary)}</textarea>
       </div>
       <div class="field">
         <label for="recordImpression">느낀 점</label>
-        <textarea id="recordImpression" placeholder="읽고 나서 느낀 점이나 생각을 적어보세요.">${esc(d.impression)}</textarea>
+        <textarea id="recordImpression" placeholder="읽고 나서 느낀 점을 간단히 적어요.">${esc(d.impression)}</textarea>
       </div>
       <button class="btn-primary" id="recordSaveBtn" type="button" disabled>기록 저장하기</button>
       <p class="save-msg" id="recordSaveMsg">저장했어요. 👍</p>
@@ -546,9 +705,6 @@
     `;
 
     const dateEl = $('recordDate');
-    const chapterEl = $('recordChapter');
-    const summaryEl = $('recordSummary');
-    const impressionEl = $('recordImpression');
     const saveBtn = $('recordSaveBtn');
     const saveMsg = $('recordSaveMsg');
     const errEl = $('recordError');
@@ -564,9 +720,9 @@
       loadRecordForDate();
     });
     bindBookField('recordBook', v => { d.book = v; touched(); });
-    chapterEl.addEventListener('input', () => { d.chapter = chapterEl.value; touched(); });
-    summaryEl.addEventListener('input', () => { d.summary = summaryEl.value; touched(); });
-    impressionEl.addEventListener('input', () => { d.impression = impressionEl.value; touched(); });
+    $('recordChapter').addEventListener('input', e => { d.chapter = e.target.value; touched(); });
+    $('recordSummary').addEventListener('input', e => { d.summary = e.target.value; touched(); });
+    $('recordImpression').addEventListener('input', e => { d.impression = e.target.value; touched(); });
     checkValid();
 
     saveBtn.addEventListener('click', async () => {
@@ -575,11 +731,11 @@
       saveMsg.classList.remove('show');
       errEl.style.display = 'none';
       try{
-        entries = await apiPost('submitRecord', {
-          name: currentName, date: recordDate,
+        entries = await apiPost('submitRecord', Object.assign(studentParams(), {
+          date: recordDate,
           bookTitle: d.book.trim(), chapter: d.chapter.trim(),
           summary: d.summary.trim(), impression: d.impression.trim()
-        });
+        }));
         d.loaded = true;
         $('recordLoadedNote').style.display = 'block';
         saveMsg.classList.add('show');
@@ -595,16 +751,16 @@
 
   function renderRecordHistory(){
     const area = $('recordHistoryArea');
-    if(!currentName){
-      area.innerHTML = '<p class="side-title">내 지난 독서기록</p><p class="side-sub">이름을 선택하면 지난 기록이 여기에 보여요.</p>';
+    if(!me){
+      area.innerHTML = '<p class="side-title">내 지난 매일 독서기록</p><p class="side-sub">이름을 고르면 지난 기록이 여기에 보여요.</p>';
       return;
     }
     if(entries.length === 0){
-      area.innerHTML = '<p class="side-title">내 지난 독서기록</p><p class="side-sub">아직 쓴 독서기록이 없어요.</p>';
+      area.innerHTML = '<p class="side-title">내 지난 매일 독서기록</p><p class="side-sub">아직 쓴 기록이 없어요.</p>';
       return;
     }
     area.innerHTML = `
-      <p class="side-title">내 지난 독서기록 (${entries.length}번)</p>
+      <p class="side-title">내 지난 매일 독서기록 (${entries.length}번)</p>
       <p class="side-sub">날짜별로 쓴 기록이에요. 고치려면 "이 날짜 불러오기"를 눌러요.</p>
       ${entries.map((e, i) => `
         <div class="past-card${e.date === recordDate ? ' is-current' : ''}">
@@ -629,101 +785,215 @@
   }
 
   // =====================================================
-  // 독서록 (책 이름, 출판사, 지은이, 쪽수 + 기록 선택 + 5문단)
+  // 독서기록장 (책 이름, 다 읽은 날짜, 서평 5문단) - 서평 쓰기 학습지의 안내와 예시를 문단마다 넣었어요
   // =====================================================
-  const ESSAY_TYPES = [
-    { key: '면제권', label: '🎟️ 면제권' },
-    { key: '공책', label: '✏️ 공책' },
-    { key: '온라인', label: '💻 온라인' }
+  const FEELING_WORDS = [
+    ['기쁘고 좋은 느낌', ['기뻤다','즐거웠다','뿌듯했다','흐뭇했다','따뜻했다','든든했다','고마웠다','감동적이었다']],
+    ['슬프고 힘든 느낌', ['슬펐다','속상했다','안타까웠다','서운했다','걱정되었다','불안했다','마음이 아팠다','씁쓸했다']],
+    ['놀랍고 궁금한 느낌', ['놀라웠다','신기했다','뜻밖이었다','궁금했다','의아했다','흥미로웠다','긴장되었다','당황스러웠다']],
+    ['불편하고 답답한 느낌', ['화가 났다','답답했다','억울했다','아쉬웠다','무서웠다','두려웠다','부끄러웠다','미안했다']],
+    ['인물에게 느낀 마음', ['공감되었다','대견했다','존경스러웠다','안심되었다','반가웠다','행복했다','재미있었다','신났다']]
   ];
-  const STATUS_LABEL = { '확인완료': '✅ 확인 완료', '확인대기': '⏳ 선생님 확인 대기', '반려': '↩️ 다시 확인해요' };
+
+  const TITLE_TIP = {
+    text: '서평의 제목은 읽는 사람의 관심을 끌거나 책의 핵심 내용(주제)을 잘 드러낼 수 있는 제목을 붙여요.',
+    examples: ['나를 지켜주는 소중한 사람은 바로 나', '약하다고 해서 사자가 아닌 것은 아니다']
+  };
+
+  const ESSAY_PARAS = [
+    {
+      title: '책 소개',
+      guide: '책의 제목, 작가, 대상 독자, 주제를 넣어서 책을 처음 보는 친구에게 소개해요.',
+      placeholder: '책 제목, 작가, 어떤 독자를 위한 책인지, 어떤 이야기인지 써요.',
+      tips: [
+        { label: '💡 문장틀 (글쓰기가 어려우면 활용해요)', body: '<div class="frame">( 책 제목 )은 ( 작가 )가 ( 독자 )를 대상으로 쓴 ( 주제 )에 대한 이야기입니다.</div>' }
+      ],
+      example: '<span class="ex-label">예</span>마이가디언은 이재문 작가가 초등학생을 대상으로 쓴 친구 관계에서 흔들리던 은하가 자신의 마음을 지키는 법을 알아 가는 이야기입니다.'
+    },
+    {
+      title: '줄거리 소개',
+      guide: '이야기의 흐름에 따라 줄거리를 요약해요. 발단 · 전개 · 절정 · 결말을 한 문장씩 쓰고 자연스럽게 이어서 써요.',
+      placeholder: '발단, 전개, 절정, 결말을 한 문장씩 써서 이어요.',
+      tips: [
+        { label: '💡 이야기 흐름별로 생각해 보기', body:
+          '<dl>' +
+          '<dt>발단</dt><dd>주인공은 어떤 인물인가요?</dd>' +
+          '<dt>전개</dt><dd>주인공에게 어떤 문제가 생겼나요?</dd>' +
+          '<dt>절정 (가장 중요한 사건)</dt><dd>문제를 해결하기 위해 어떤 일이 있었나요?</dd>' +
+          '<dt>결말</dt><dd>결국 주인공은 어떻게 되었나요?</dd></dl>' }
+      ],
+      example: '<span class="ex-label">예</span>' +
+        '<dl>' +
+        '<dt>발단</dt><dd class="ex-text">은하는 4학년때까지 왕따를 당하다가 학교에서 인기 많은 다미와 친해지게 되고 다미에게 잘 보이기 위해 하기 싫은 일도 하게 된다.</dd>' +
+        '<dt>전개</dt><dd class="ex-text">6학년이 되어 은하는 다미가 싫어하는 지은이와 같은 반이 되고 지은이와 점점 친해진다.</dd>' +
+        '<dt>절정</dt><dd class="ex-text">다미는 지은이와 친해진 은하를 은근히 괴롭히고 은하는 다미의 행동이 자신을 위한 것이 아니라는 것을 깨닫는다.</dd>' +
+        '<dt>결말</dt><dd class="ex-text">은하는 다미에게 자신의 생각을 솔직하게 말하며 다미 때문에 잃어버린 것을 다시 되찾는다.</dd></dl>'
+    },
+    {
+      title: '인상 깊은 부분과 그 이유',
+      guide: '인상적인 장면, 그 장면에 대한 느낌, 인상적인 까닭을 한 문장씩 써서 한 문단으로 이어요. 까닭에는 인물의 말, 행동, 표현, 공감된 나의 경험 등을 써요.',
+      placeholder: '인상적인 장면 → 그 장면에 대한 느낌 → 인상적인 까닭 순서로 써요.',
+      feelings: true,
+      tips: [
+        { label: '💡 문장틀 (글쓰기가 어려우면 활용해요)', body:
+          '<div class="frame"><b>인상적인 장면</b> 나는 (   ) 장면이 인상적이었다.</div>' +
+          '<div class="frame"><b>그 장면에 대한 느낌</b> 그 때 (   ) 하다고 느꼈다.</div>' +
+          '<div class="frame"><b>인상적인 까닭</b> 왜냐하면 책 속에서 (   ) 했기 때문이다.</div>' }
+      ],
+      example: '<span class="ex-label">좋은 예</span>은하가 자기 생각을 말하는 부분이 인상적이었다. 친구와 멀어질 수 있었는데도 자신의 생각을 솔직하게 말했기 때문에 나라면 그렇게 할 수 없을 것 같아서 더 용감하다고 느꼈다.'
+    },
+    {
+      title: '이 책의 좋은 점',
+      guide: '이 책의 좋은 점이 무엇인지 쓰고, 그렇게 평가한 까닭을 함께 써요.',
+      placeholder: '이 책의 좋은 점과 그렇게 생각한 까닭을 써요.',
+      tips: [
+        { label: '💡 문장틀 (글쓰기가 어려우면 활용해요)', body:
+          '<div class="frame"><b>평가</b> 이 책의 좋은 점은 (          ) 이다.</div>' +
+          '<div class="frame"><b>까닭</b> 그 까닭은 (왜냐하면) (          ) 이기 때문이다.</div>' },
+        { label: '💡 평가의 기준 찾기', body:
+          '<p class="cat">이 책이 재미있는 까닭은 무엇일까?</p>' +
+          '<ul><li>이야기가 재미있는가? 사건이 자연스럽게 이어지는가?</li><li>인물의 말과 행동이 실감나는가? 재미있는 표현이 있는가?</li><li>소재나 설정이 현실적인가?</li></ul>' +
+          '<p class="cat">새롭고 신선한 까닭은 무엇일까?</p>' +
+          '<ul><li>소재나 설정이 새롭고 독특한가? 표현이나 전개 방식이 신선한가?</li></ul>' +
+          '<p class="cat">감동적인 까닭은 무엇일까?</p>' +
+          '<ul><li>주제가 잘 나타나는가? 인물의 말과 행동이 마음을 움직이는가?</li><li>새로운 생각을 하게 하는가?</li></ul>' }
+      ],
+      example: '<span class="ex-label">좋은 예 ①</span>이 책은 친구 관계를 현실적으로 나타내어 공감하기가 쉽다.<br><span class="ex-label">좋은 예 ②</span>주인공의 마음 변화가 잘 나타나있어 인물의 성장을 이해하기 쉽다.'
+    },
+    {
+      title: '책에 대한 평가 또는 추천',
+      guide: '이 책에 대한 나의 평가를 쓰고(조금 아쉬웠던 점도 좋아요), 이 책을 읽으면 좋을 친구에게 추천하는 말로 마무리해요.',
+      placeholder: '이 책에 대한 평가와 추천하는 말을 써요.',
+      tips: [
+        { label: '💡 문장틀 (글쓰기가 어려우면 활용해요)', body:
+          '<div class="frame"><b>평가</b> 이 책의 조금 아쉬웠던 점은 (          ) 이다.</div>' +
+          '<div class="frame"><b>까닭</b> 그 까닭은 (왜냐하면) (          ) 이기 때문이다.</div>' +
+          '<div class="frame"><b>추천</b> 나는 (          ) 친구에게 이 책을 추천하고 싶다.</div>' +
+          '<p>평가의 기준은 4문단의 "평가의 기준 찾기"를 참고해요.</p>' }
+      ],
+      example: ''
+    }
+  ];
 
   function freshEssayDraft(){
-    return { book: '', publisher: '', author: '', pages: '', type: '온라인', paras: ['', '', '', '', ''] };
+    return { book: '', finishDate: TODAY, title: '', paras: ['', '', '', '', ''] };
   }
   let essayDraft = freshEssayDraft();
+  let essayNote = '';   // 책 고르기에서 알려줄 말 (이미 쓴 글을 불러왔을 때 등)
 
-  function essayTypeNote(type){
-    if(type === '공책') return '공책에 쓴 독서록이에요. 책 정보만 남기면 돼요. 선생님이 공책을 확인하면 독서록 권수에 들어가요.';
-    if(type === '면제권') return '면제권을 쓰는 독서록이에요. 책 정보만 남기면 돼요. 선생님이 확인하면 독서록 권수에 들어가요.';
-    return '';
+  function essayDraftEmpty(d){ return !d.title.trim() && d.paras.every(p => !p.trim()); }
+  function findEssay(book){ book = (book || '').trim(); return book ? essays.find(e => e.bookTitle === book) : null; }
+
+  function paraCardHtml(i, d){
+    const p = ESSAY_PARAS[i];
+    const feel = p.feelings ? `
+      <details class="tip"><summary>💡 느낌을 나타내는 여러 가지 낱말 (눌러서 문단에 넣어요)</summary>
+        <div class="tip-body">
+          <p class="hint-line">인상적인 장면을 읽으며 내 마음이 어땠는지 생각해 보세요.</p>
+          ${FEELING_WORDS.map(g => `<p class="cat">${g[0]}</p><div class="chip-row">${g[1].map(w => `<button type="button" class="word-chip" data-word="${esc(w)}" data-target="essayP${i}">${w}</button>`).join('')}</div>`).join('')}
+        </div>
+      </details>` : '';
+    return `
+      <section class="para-card" id="paraCard${i}">
+        <div class="card-head">
+          <span class="para-num">${i + 1}</span>
+          <h3>${i + 1}문단 · ${p.title}</h3>
+          <span class="para-count" id="paraCount${i}"></span>
+        </div>
+        <p class="para-guide">${p.guide}</p>
+        ${p.tips.map(t => `<details class="tip"><summary>${t.label}</summary><div class="tip-body">${t.body}</div></details>`).join('')}
+        ${feel}
+        ${p.example ? `<details class="tip"><summary>📖 예시 보기</summary><div class="tip-body">${p.example}</div></details>` : ''}
+        <textarea class="lined" id="essayP${i}" placeholder="${esc(p.placeholder)}">${esc(d.paras[i])}</textarea>
+      </section>`;
   }
 
   function renderEssayForm(){
     const area = $('essayFormArea');
-    if(!currentName){
-      area.innerHTML = '<p class="empty-note">먼저 이름을 선택해주세요.</p>';
+    if(!me){
+      area.innerHTML = '<p class="empty-note">먼저 위에서 학년, 반, 이름을 골라주세요.</p>';
       return;
     }
     const d = essayDraft;
-    const online = d.type === '온라인';
     area.innerHTML = `
+      <p class="note-box" id="essayNote" style="display:${essayNote ? 'block' : 'none'};">${esc(essayNote)}</p>
       ${bookFieldHtml('essayBook', '책 이름', d.book)}
-      <div class="field-row-wrap">
-        <div class="field-row">
-          <div class="field">
-            <label for="essayPublisher">출판사</label>
-            <input type="text" id="essayPublisher" value="${esc(d.publisher)}">
-          </div>
-          <div class="field">
-            <label for="essayAuthor">지은이</label>
-            <input type="text" id="essayAuthor" value="${esc(d.author)}">
-          </div>
-          <div class="field">
-            <label for="essayPages">쪽수</label>
-            <input type="text" id="essayPages" inputmode="numeric" placeholder="예: 216" value="${esc(d.pages)}">
-          </div>
-        </div>
-      </div>
       <div class="field">
-        <label>기록 선택</label>
-        <div class="type-toggle">
-          ${ESSAY_TYPES.map(t => `<button type="button" class="type-btn${d.type === t.key ? ' active' : ''}" data-type="${t.key}">${t.label}</button>`).join('')}
-        </div>
+        <label for="essayFinish">다 읽은 날짜</label>
+        <input type="date" id="essayFinish" value="${esc(d.finishDate)}" max="${TODAY}">
       </div>
-      <p class="note-box" id="essayTypeNote" style="display:${online ? 'none' : 'block'};">${esc(essayTypeNote(d.type))}</p>
-      <div id="essayParas" style="display:${online ? 'block' : 'none'};">
-        ${ESSAY_PARAS.map((p, i) => `
-          <div class="field essay-para">
-            <label for="essayP${i}"><span class="para-num">${i+1}</span>${p.label}</label>
-            <textarea id="essayP${i}" placeholder="${p.placeholder}">${esc(d.paras[i])}</textarea>
-          </div>
-        `).join('')}
-        <p class="hint-line">다 못 썼어도 저장할 수 있어요. 오른쪽(또는 아래) 지난 독서록에서 이어서 쓸 수 있어요.</p>
+      <div class="title-card">
+        <div class="card-head"><h3>서평 제목</h3></div>
+        <p class="para-guide">${TITLE_TIP.text}</p>
+        <details class="tip"><summary>📖 예시 보기</summary>
+          <div class="tip-body"><ul>${TITLE_TIP.examples.map(x => `<li><span class="ex-label">예</span>${x}</li>`).join('')}</ul></div>
+        </details>
+        <input type="text" id="essayTitle" placeholder="내가 쓸 서평의 제목" value="${esc(d.title)}">
       </div>
-      <button class="btn-primary" id="essaySaveBtn" type="button" disabled>독서록 저장하기</button>
-      <p class="save-msg" id="essaySaveMsg"></p>
-      <p class="error-text" id="essayError" style="display:none;"></p>
+      <p class="hint-line">각 문단은 줄을 바꾸지 않고 이어서 써요. 오른쪽(또는 아래)에는 내가 쓴 글이 문단 제목 없이 한 편의 글로 보여요.</p>
+      ${ESSAY_PARAS.map((_, i) => paraCardHtml(i, d)).join('')}
+      <div class="save-bar">
+        <span class="progress" id="essayProgress"></span>
+        <button class="btn-primary" id="essaySaveBtn" type="button" disabled>독서기록장 저장하기</button>
+        <p class="note-box warn" id="essayDupNote" style="display:none;margin:0;width:100%;">이 책으로 쓴 독서기록장이 이미 있어요. 저장하면 지금 쓴 내용으로 바뀌어요.</p>
+        <p class="save-msg" id="essaySaveMsg"></p>
+        <p class="error-text" id="essayError" style="display:none;"></p>
+      </div>
     `;
 
     const saveBtn = $('essaySaveBtn');
     const saveMsg = $('essaySaveMsg');
     const errEl = $('essayError');
 
-    function checkValid(){
-      saveBtn.disabled = !(d.book.trim() && (d.type !== '온라인' || d.paras.some(p => p.trim())));
+    function refresh(){
+      const done = d.paras.filter(p => p.trim()).length;
+      d.paras.forEach((p, i) => {
+        $('paraCard' + i).classList.toggle('filled', !!p.trim());
+        $('paraCount' + i).textContent = p.trim() ? p.trim().length + '자' : '';
+      });
+      $('essayProgress').innerHTML = done === 5
+        ? '<b>5문단을 모두 썼어요!</b> 저장하면 독서록 권수에 들어가요.'
+        : `서평 문단 <b>${done}/5</b> · 5문단을 모두 쓰면 독서록 권수에 들어가요.`;
+      saveBtn.disabled = !(d.book.trim() && (d.title.trim() || done > 0));
+      const dup = findEssay(d.book);
+      $('essayDupNote').style.display = (dup && !essayDraftEmpty(d)) ? 'block' : 'none';
     }
-    function touched(){ saveMsg.classList.remove('show'); checkValid(); }
+    function touched(){ saveMsg.classList.remove('show'); refresh(); }
 
-    bindBookField('essayBook', v => { d.book = v; touched(); });
-    $('essayPublisher').addEventListener('input', e => { d.publisher = e.target.value; touched(); });
-    $('essayAuthor').addEventListener('input', e => { d.author = e.target.value; touched(); });
-    $('essayPages').addEventListener('input', e => { d.pages = e.target.value; touched(); });
+    bindBookField('essayBook', v => {
+      d.book = v;
+      const dup = findEssay(v);
+      if(dup && essayDraftEmpty(d)){
+        // 비어 있는 상태에서 이미 쓴 책을 고르면, 쓰던 글을 불러온다
+        essayDraft = { book: dup.bookTitle, finishDate: dup.date <= TODAY ? dup.date : TODAY, title: dup.reviewTitle || '', paras: dup.paragraphs.slice(0, 5) };
+        essayNote = '이 책으로 쓰던 독서기록장을 불러왔어요. 이어서 쓰면 돼요.';
+        renderEssayForm();
+        return;
+      }
+      touched();
+    });
+    $('essayFinish').addEventListener('change', e => {
+      if(!e.target.value || e.target.value > TODAY){ e.target.value = d.finishDate; return; }
+      d.finishDate = e.target.value; touched();
+    });
+    $('essayTitle').addEventListener('input', e => { d.title = e.target.value; touched(); });
     ESSAY_PARAS.forEach((_, i) => {
       $('essayP' + i).addEventListener('input', e => { d.paras[i] = e.target.value; touched(); });
     });
-    area.querySelectorAll('.type-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        d.type = btn.getAttribute('data-type');
-        area.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b === btn));
-        const on = d.type === '온라인';
-        $('essayParas').style.display = on ? 'block' : 'none';
-        $('essayTypeNote').style.display = on ? 'none' : 'block';
-        $('essayTypeNote').textContent = essayTypeNote(d.type);
-        touched();
+    // 느낌 낱말을 눌러서 3문단에 넣기
+    area.querySelectorAll('.word-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const ta = $(chip.getAttribute('data-target'));
+        const w = chip.getAttribute('data-word');
+        const start = ta.selectionStart == null ? ta.value.length : ta.selectionStart;
+        const end = ta.selectionEnd == null ? ta.value.length : ta.selectionEnd;
+        ta.value = ta.value.slice(0, start) + w + ta.value.slice(end);
+        const pos = start + w.length;
+        try{ ta.setSelectionRange(pos, pos); ta.focus(); }catch(e){}
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
       });
     });
-    checkValid();
+    refresh();
 
     saveBtn.addEventListener('click', async () => {
       saveBtn.disabled = true;
@@ -731,61 +1001,59 @@
       saveMsg.classList.remove('show');
       errEl.style.display = 'none';
       try{
-        essays = await apiPost('submitEssay', {
-          name: currentName, bookTitle: d.book.trim(),
-          publisher: d.publisher.trim(), author: d.author.trim(), pages: d.pages.trim(),
-          recordType: d.type,
-          paragraphs: d.type === '온라인' ? d.paras : ['', '', '', '', '']
-        });
-        saveMsg.textContent = d.type === '온라인'
-          ? '독서록을 저장했어요. 👍'
-          : '저장했어요. 선생님이 확인하면 독서록 권수에 들어가요. 👍';
+        essays = await apiPost('submitEssay', Object.assign(studentParams(), {
+          bookTitle: d.book.trim(), finishDate: d.finishDate, reviewTitle: d.title.trim(), paragraphs: d.paras
+        }));
+        const complete = d.paras.every(p => p.trim());
+        saveMsg.textContent = complete
+          ? '5문단을 모두 써서 독서록 권수에 들어갔어요. 👍'
+          : '작성 중으로 저장했어요. 5문단을 모두 쓰면 독서록 권수에 들어가요.';
         saveMsg.classList.add('show');
         renderEssayHistory();
+        refresh();
       }catch(err){
         showError(err, errEl, '저장에 실패했어요. 다시 시도해주세요.');
       }finally{
-        saveBtn.textContent = '독서록 저장하기';
-        checkValid();
+        saveBtn.textContent = '독서기록장 저장하기';
+        refresh();
       }
     });
   }
 
+  function essayStatusBadge(e){
+    if(e.recordType !== '온라인') return '<span class="badge done">' + esc(e.recordType) + ' · 선생님 확인</span>';
+    return e.status === '확인완료' ? '<span class="badge done">✅ 완성</span>' : '<span class="badge draft">✍️ 작성 중</span>';
+  }
+
   function renderEssayHistory(){
     const area = $('essayHistoryArea');
-    if(!currentName){
-      area.innerHTML = '<p class="side-title">내가 쓴 지난 독서록</p><p class="side-sub">이름을 선택하면 지난 독서록이 여기에 보여요.</p>';
+    if(!me){
+      area.innerHTML = '<p class="side-title">내가 쓴 독서기록장</p><p class="side-sub">이름을 고르면 내가 쓴 글이 여기에 보여요.</p>';
       return;
     }
     if(essays.length === 0){
-      area.innerHTML = '<p class="side-title">내가 쓴 지난 독서록</p><p class="side-sub">아직 쓴 독서록이 없어요.</p>';
+      area.innerHTML = '<p class="side-title">내가 쓴 독서기록장</p><p class="side-sub">아직 쓴 독서기록장이 없어요.</p>';
       return;
     }
-    const confirmed = essays.filter(e => e.status === '확인완료').length;
-    const waiting = essays.filter(e => e.status === '확인대기').length;
+    const done = essays.filter(e => e.status === '확인완료').length;
+    const draft = essays.filter(e => e.status === '작성중').length;
     area.innerHTML = `
-      <p class="side-title">내가 쓴 지난 독서록 (${confirmed}권${waiting ? ' · 확인 대기 ' + waiting : ''})</p>
-      <p class="side-sub">독서록 권수는 온라인으로 쓴 것과, 선생님이 확인한 공책·면제권이에요.</p>
+      <p class="side-title">내가 쓴 독서기록장 (완성 ${done}권${draft ? ' · 작성 중 ' + draft : ''})</p>
+      <p class="side-sub">쓴 글이 한 편의 글로 보여요. 고치거나 이어서 쓰려면 버튼을 눌러요.</p>
       ${essays.map((e, i) => {
         const online = e.recordType === '온라인';
-        const meta = [e.author, e.publisher, e.pages ? e.pages + '쪽' : ''].filter(Boolean).join(' · ');
+        const meta = [e.reviewTitle ? e.bookTitle : '', e.author, e.publisher, e.pages ? e.pages + '쪽' : ''].filter(Boolean).join(' · ');
         const body = online
           ? `<div class="essay-body">${e.paragraphs.filter(t => t.trim())
-              .map(t => `<p>${esc(t.trim()).replace(/\n/g, '<br>')}</p>`).join('')}</div>`
+              .map(t => `<p>${esc(t.trim()).replace(/\n/g, '<br>')}</p>`).join('') || '<p style="color:var(--ink-soft);text-indent:0;">아직 쓴 문단이 없어요.</p>'}</div>`
           : `<div class="past-text" style="color:var(--ink-soft);">${esc(e.recordType)}으로 낸 독서록이에요.</div>`;
-        const statusBadge = online ? '' : `<span class="badge ${e.status === '확인완료' ? 'done' : (e.status === '반려' ? 'warn' : 'pending')}" style="margin-left:6px;">${STATUS_LABEL[e.status] || esc(e.status)}</span>`;
-        const memo = (!online && e.note) ? `<div class="teacher-memo">선생님 메모: ${esc(e.note)}</div>` : '';
-        const locked = !online && e.status === '확인완료';
         return `
           <div class="past-card">
-            <div class="past-date">${fmtDateKo(e.date)} 저장</div>
-            <div class="past-title">${esc(e.bookTitle)}</div>
-            <div class="past-meta"><span class="type-tag">${esc(e.recordType)}</span>${meta ? esc(meta) : ''}${statusBadge}</div>
+            <div class="past-date">${fmtDateKo(e.date)} 다 읽음 ${essayStatusBadge(e)}</div>
+            <div class="essay-headline">${esc(e.reviewTitle || e.bookTitle)}</div>
+            ${meta ? `<div class="past-meta">${esc(meta)}</div>` : ''}
             ${body}
-            ${memo}
-            ${locked
-              ? '<div class="past-meta" style="margin-top:10px;">선생님이 확인한 기록이에요.</div>'
-              : `<button class="btn-ghost" type="button" data-edit="${i}">${online ? '이어서 쓰기 / 수정하기' : '고쳐서 다시 내기'}</button>`}
+            ${online ? `<button class="btn-ghost" type="button" data-edit="${i}">${e.status === '확인완료' ? '수정하기' : '이어서 쓰기'}</button>` : ''}
           </div>`;
       }).join('')}
     `;
@@ -793,10 +1061,10 @@
       btn.addEventListener('click', () => {
         const e = essays[Number(btn.getAttribute('data-edit'))];
         essayDraft = {
-          book: e.bookTitle, publisher: e.publisher || '', author: e.author || '', pages: e.pages || '',
-          type: e.recordType || '온라인',
-          paras: e.paragraphs.slice(0, 5)
+          book: e.bookTitle, finishDate: e.date <= TODAY ? e.date : TODAY,
+          title: e.reviewTitle || '', paras: e.paragraphs.slice(0, 5)
         };
+        essayNote = '';
         renderEssayForm();
         $('panel-essay').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
@@ -804,17 +1072,18 @@
   }
 
   // =====================================================
-  // 현황판 (오늘 낸 사람 / 낸 횟수 / 독서록 권수, 날짜별 확인)
+  // 현황판 (학년·반별: 독서록 권수 / 매일 독서기록 횟수 / 날짜별 현황)
   // =====================================================
   let boardDate = TODAY;
-  let boardSub = 'today';
+  let boardSub = 'books';
   let boardData = null;
+  let boardPicker = null;
 
   $('boardDateInput').value = TODAY;
   $('boardDateInput').max = TODAY;
 
   function setBoardDate(d){
-    if(!d || d > TODAY) { $('boardDateInput').value = boardDate; return; }
+    if(!d || d > TODAY){ $('boardDateInput').value = boardDate; return; }
     boardDate = d;
     $('boardDateInput').value = d;
     loadBoard();
@@ -832,11 +1101,25 @@
     });
   });
 
+  function mountBoardPicker(){
+    boardPicker = makePicker('board', false, () => loadBoard());
+    defaultClassFor(boardPicker, true);
+    remountPicker(boardPicker, 'boardPickerSlot');
+  }
+
   async function loadBoard(){
     const asked = boardDate;
+    const ci = boardPicker && boardPicker.classInfo();
+    if(hasClassInfo() && !ci){
+      boardData = null;
+      $('boardArea').innerHTML = '<p class="empty-note">학년과 반을 골라주세요.</p>';
+      return;
+    }
     $('boardArea').innerHTML = '<p class="loading">불러오는 중...</p>';
     try{
-      const data = await apiGet('getDashboard', { date: asked });
+      const params = { date: asked };
+      if(ci){ params.grade = ci.grade; params.cls = ci.cls; }
+      const data = await apiGet('getDashboard', params);
       if(asked !== boardDate) return;
       boardData = data;
       renderBoard();
@@ -847,25 +1130,67 @@
   }
 
   function renderBoard(){
-    // 첫 번째 탭 이름은 날짜에 맞춰 바뀐다
-    const todaySub = document.querySelector('.subtab[data-sub="today"]');
-    todaySub.textContent = boardDate === TODAY ? '오늘 낸 사람' : fmtShort(boardDate) + ' 낸 사람';
-
     const area = $('boardArea');
     if(!boardData){ return; }
     const rows = boardData.rows;
+    const dateSub = document.querySelector('.subtab[data-sub="date"]');
+    dateSub.textContent = boardDate === TODAY ? '오늘 현황' : fmtShort(boardDate) + ' 현황';
     if(rows.length === 0){
-      area.innerHTML = '<p class="empty-note">아직 등록된 학생이 없어요.</p>';
+      area.innerHTML = '<p class="empty-note">이 반에는 등록된 학생이 없어요.</p>';
       return;
     }
-    const asOf = boardDate !== TODAY
-      ? `<p class="hint-line">${fmtDateKo(boardDate)}까지의 기록이에요.</p>` : '';
+    const where = classTitle(boardData.grade, boardData.cls);
+    const asOf = boardDate !== TODAY ? `<p class="hint-line">${fmtDateKo(boardDate)}까지의 기록이에요.</p>` : '';
 
-    if(boardSub === 'today'){
+    if(boardSub === 'books'){
+      const total = rows.reduce((s, r) => s + r.essayCount, 0);
+      const exempt = rows.reduce((s, r) => s + r.exemptCount, 0);
+      area.innerHTML = `
+        ${asOf}
+        <div class="summary-bar">
+          <span class="label">${esc(where)} 독서록 권수 (학급 전체 ${total}권${exempt ? ' · 면제권 사용 ' + exempt + '회' : ''})</span>
+        </div>
+        <div class="student-list">
+          ${rows.map(r => `
+            <div class="student-block">
+              <div class="student-row books-row">
+                <div class="top">
+                  <span class="left"><span class="num">${esc(r.num)}</span><span class="name">${esc(r.name)}</span></span>
+                  <span class="count-num">${r.essayCount}권</span>
+                </div>
+                ${(r.essayHand || r.exemptCount) ? `<div class="sub">${[r.essayOnline ? '온라인 ' + r.essayOnline + '권' : '', r.essayHand ? '손으로 쓴 독서록 ' + r.essayHand + '권' : '', r.exemptCount ? '면제권 ' + r.exemptCount + '회' : ''].filter(Boolean).join(' · ')}</div>` : ''}
+                ${r.essayBooks.length ? `<div class="book-chips">${r.essayBooks.map(b =>
+                  `<span class="chip">${esc(b.bookTitle || '(책 이름 없음)')}${b.kind === '손글씨' ? ' · 손으로 씀' : ''}</span>`).join('')}</div>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>`;
+
+    } else if(boardSub === 'count'){
+      const max = Math.max(1, ...rows.map(r => r.recordCount));
+      const total = rows.reduce((s, r) => s + r.recordCount, 0);
+      const avg = (total / rows.length).toFixed(1);
+      area.innerHTML = `
+        ${asOf}
+        <div class="summary-bar">
+          <span class="label">${esc(where)} 매일 독서기록 횟수 (학급 전체 ${total}번 · 한 명 평균 ${avg}번)</span>
+        </div>
+        <div class="student-list">
+          ${rows.map(r => `
+            <div class="student-block">
+              <div class="student-row count-row">
+                <span class="left"><span class="num">${esc(r.num)}</span><span class="name" style="min-width:70px;">${esc(r.name)}</span></span>
+                <div class="bar-track"><div class="bar-fill" style="width:${Math.round(r.recordCount / max * 100)}%;"></div></div>
+                ${r.streak >= 2 ? `<span class="streak-tag">🔥 ${r.streak}일 연속</span>` : ''}
+                <span class="count-num">${r.recordCount}번</span>
+              </div>
+            </div>`).join('')}
+        </div>`;
+
+    } else {
       const done = rows.filter(r => r.doneOnDate).length;
       area.innerHTML = `
         <div class="summary-bar">
-          <span class="label">${boardDate === TODAY ? '오늘' : fmtDateKo(boardDate)} 독서기록을 낸 사람</span>
+          <span class="label">${esc(where)} · ${boardDate === TODAY ? '오늘' : fmtDateKo(boardDate)} 매일 독서기록을 낸 사람</span>
           <span class="count">${done} / ${rows.length}명</span>
         </div>
         <div class="student-list">
@@ -881,7 +1206,7 @@
             return `
               <div class="student-block">
                 <div class="student-row clickable">
-                  <div class="left"><span class="caret">›</span><span class="name">${esc(r.name)}</span></div>
+                  <div class="left"><span class="caret">›</span><span class="num">${esc(r.num)}</span><span class="name">${esc(r.name)}</span></div>
                   <span class="badge ${r.doneOnDate ? 'done' : 'pending'}">${r.doneOnDate ? '제출완료' : '미제출'}</span>
                 </div>
                 <div class="student-detail">${detail}</div>
@@ -891,61 +1216,27 @@
       area.querySelectorAll('.student-row.clickable').forEach(row => {
         row.addEventListener('click', () => row.closest('.student-block').classList.toggle('open'));
       });
-
-    } else if(boardSub === 'count'){
-      const max = Math.max(1, ...rows.map(r => r.recordCount));
-      const total = rows.reduce((s, r) => s + r.recordCount, 0);
-      const avg = (total / rows.length).toFixed(1);
-      area.innerHTML = `
-        ${asOf}
-        <div class="summary-bar">
-          <span class="label">그동안 독서기록을 낸 횟수 (학급 전체 ${total}번 · 한 명 평균 ${avg}번)</span>
-        </div>
-        <div class="student-list">
-          ${rows.map(r => `
-            <div class="student-block">
-              <div class="student-row count-row">
-                <span class="name" style="min-width:76px;">${esc(r.name)}</span>
-                <div class="bar-track"><div class="bar-fill" style="width:${Math.round(r.recordCount / max * 100)}%;"></div></div>
-                ${r.streak >= 2 ? `<span class="streak-tag">🔥 ${r.streak}일 연속</span>` : ''}
-                <span class="count-num">${r.recordCount}번</span>
-              </div>
-            </div>`).join('')}
-        </div>`;
-
-    } else {
-      const total = rows.reduce((s, r) => s + r.essayCount, 0);
-      area.innerHTML = `
-        ${asOf}
-        <div class="summary-bar">
-          <span class="label">그동안 쓴 독서록 (학급 전체 ${total}권 · 선생님이 확인한 공책/면제권 포함)</span>
-        </div>
-        <div class="student-list">
-          ${rows.map(r => `
-            <div class="student-block">
-              <div class="student-row books-row">
-                <div class="top">
-                  <span class="name">${esc(r.name)}${r.pendingCount ? ` <span class="badge pending" style="margin-left:6px;">확인 대기 ${r.pendingCount}</span>` : ''}</span>
-                  <span class="count-num">${r.essayCount}권</span>
-                </div>
-                ${r.essayBooks.length ? `<div class="book-chips">${r.essayBooks.map(b =>
-                  `<span class="chip">${esc(b.bookTitle)}${b.author ? ' · ' + esc(b.author) : ''}${b.recordType !== '온라인' ? ' · ' + esc(b.recordType) : ''}</span>`).join('')}</div>` : ''}
-              </div>
-            </div>`).join('')}
-        </div>`;
     }
   }
 
   // =====================================================
-  // 선생님 (공책/면제권 확인 → 권수 올리기, 직접 권수 추가)
+  // 교사용 설정 (손으로 쓴 독서록 체크 / 면제권 사용 / 특이사항) - 교사 코드로 들어가요
   // =====================================================
   const TEACHER_KEY = 'readinglog.teacherCode';
   let teacherCode = '';
   try{ teacherCode = sessionStorage.getItem(TEACHER_KEY) || ''; }catch(e){}
-  let teacherData = null;
-  let teacherSub = 'pending';
-  let teacherMsg = '';
-  let addDraft = { name: '', book: '', publisher: '', author: '', pages: '', type: '공책' };
+  let tcPicker = null;
+  let tView = null;                 // {grade, cls, rows}
+  let tChecked = {};                // 체크한 학생 이름
+  let tOpen = {};                   // 기록을 펼친 학생 이름
+  let tTool = { type: '손글씨독서록', text: '', date: TODAY };
+  let tMsg = '';
+
+  const TOOLS = [
+    { key: '손글씨독서록', label: '✏️ 손으로 쓴 독서록 +1권', field: '책 이름 (선택)', ph: '예: 마당을 나온 암탉', apply: '손으로 쓴 독서록 +1권 기록하기' },
+    { key: '면제권', label: '🎟️ 면제권 사용 기록', field: '사유 (선택)', ph: '예: 현장체험학습으로 면제', apply: '면제권 사용 기록하기' },
+    { key: '특이사항', label: '📝 특이사항 기록', field: '특이사항 내용 (꼭 적어요)', ph: '예: 독서록 제출이 늦어짐', apply: '특이사항 기록하기' }
+  ];
 
   function setTeacherCode(c){
     teacherCode = c;
@@ -954,189 +1245,185 @@
 
   function renderTeacherLogin(state){
     const msg = state === 'wrong' ? '코드가 맞지 않아요.'
-      : state === 'notset' ? '아직 선생님 코드가 정해지지 않았어요. 구글 시트의 Settings 탭에서 TeacherCode 옆 칸에 코드를 먼저 적어주세요.'
+      : state === 'notset' ? '아직 교사 코드가 정해지지 않았어요. 구글 시트의 Settings 탭에서 TeacherCode 옆 칸에 코드를 먼저 적어주세요.'
       : state === 'error' ? '불러오지 못했어요. 다시 시도해주세요.'
-      : '선생님만 쓸 수 있는 곳이에요. 선생님 코드를 입력해주세요.';
+      : '선생님만 쓸 수 있는 곳이에요. 교사 코드를 입력해주세요.';
     $('teacherArea').innerHTML = `
       <div class="teacher-login">
         <p class="note-box">${esc(msg)}</p>
         <div class="field">
-          <label for="teacherCodeInput">선생님 코드</label>
+          <label for="teacherCodeInput">교사 코드</label>
           <input type="text" id="teacherCodeInput" autocomplete="off">
         </div>
         <button class="btn-primary" id="teacherLoginBtn" type="button">들어가기</button>
       </div>`;
     const input = $('teacherCodeInput');
-    const go = () => { const c = input.value.trim(); if(!c) return; setTeacherCode(c); loadTeacher(); };
+    const go = () => { const c = input.value.trim(); if(!c) return; setTeacherCode(c); renderTeacher(); };
     $('teacherLoginBtn').addEventListener('click', go);
     input.addEventListener('keydown', e => { if(e.key === 'Enter') go(); });
   }
 
+  // 오류를 처리했으면 true, 못 했으면 false
   function handleTeacherError(err){
-    if(err && err.code === 'CODE_REQUIRED'){ showGate('code', 'wrong'); return; }
-    if(err && err.code === 'TEACHER_NOT_SET'){ setTeacherCode(''); renderTeacherLogin('notset'); return; }
-    if(err && err.code === 'TEACHER_CODE_WRONG'){ setTeacherCode(''); renderTeacherLogin('wrong'); return; }
+    if(err && err.code === 'CODE_REQUIRED'){ showGate('code', 'wrong'); return true; }
+    if(err && err.code === 'TEACHER_NOT_SET'){ setTeacherCode(''); renderTeacherLogin('notset'); return true; }
+    if(err && err.code === 'TEACHER_CODE_WRONG'){ setTeacherCode(''); renderTeacherLogin('wrong'); return true; }
     return false;
   }
 
-  async function loadTeacher(){
-    $('teacherArea').innerHTML = '<p class="loading">불러오는 중...</p>';
-    try{
-      teacherData = await apiPost('teacherData', { teacherCode: teacherCode });
-      renderTeacherPanel();
-    }catch(err){
-      if(handleTeacherError(err) === false) renderTeacherLogin('error');
-    }
-  }
-
   function renderTeacher(){
-    if(!teacherCode){ teacherData = null; renderTeacherLogin(''); return; }
-    loadTeacher(); // 들어올 때마다 최신 상태로
-  }
-
-  function teacherMeta(it){
-    return [it.author, it.publisher, it.pages ? it.pages + '쪽' : ''].filter(Boolean).join(' · ');
-  }
-
-  function renderTeacherPanel(){
-    const pending = teacherData.pending;
-    const area = $('teacherArea');
-    area.innerHTML = `
+    if(!teacherCode){ renderTeacherLogin(''); return; }
+    $('teacherArea').innerHTML = `
       <div class="teacher-head">
-        <p>공책/면제권으로 낸 독서록을 확인하면 그 학생의 독서록 권수가 올라가요.</p>
+        <p>손으로 쓴 독서록을 낸 친구를 체크해서 독서록 권수에 더하고, 면제권 사용 횟수와 특이사항을 기록해요. 명단, 책 목록, 코드는 구글 시트(Students, Books, Settings 탭)에서 고쳐요.</p>
         <button class="btn-ghost" id="teacherLogoutBtn" type="button">나가기</button>
       </div>
-      <div class="subtabs" id="teacherSubtabs">
-        <button class="subtab${teacherSub === 'pending' ? ' active' : ''}" data-tsub="pending" type="button">확인 대기 (${pending.length})</button>
-        <button class="subtab${teacherSub === 'add' ? ' active' : ''}" data-tsub="add" type="button">직접 권수 추가</button>
-      </div>
-      <p class="save-msg${teacherMsg ? ' show' : ''}" id="teacherMsg" style="margin:0 0 12px;">${esc(teacherMsg)}</p>
+      <div id="tcPickerSlot"></div>
+      <p class="save-msg" id="teacherMsg" style="margin:0 0 12px;"></p>
       <p class="error-text" id="teacherError" style="display:none;"></p>
-      <div id="teacherBody"></div>
+      <div id="teacherBody"><p class="loading">불러오는 중...</p></div>
     `;
-    teacherMsg = '';
-    $('teacherLogoutBtn').addEventListener('click', () => { setTeacherCode(''); teacherData = null; renderTeacherLogin(''); });
-    area.querySelectorAll('[data-tsub]').forEach(b => {
-      b.addEventListener('click', () => { teacherSub = b.getAttribute('data-tsub'); renderTeacherPanel(); });
+    $('teacherLogoutBtn').addEventListener('click', () => {
+      setTeacherCode(''); tView = null; tChecked = {}; tOpen = {};
+      renderTeacherLogin('');
     });
-    if(teacherSub === 'pending') renderTeacherPending(); else renderTeacherAdd();
+    tcPicker = makePicker('tc', false, () => { tChecked = {}; tOpen = {}; loadTeacherClass(); });
+    defaultClassFor(tcPicker, true);
+    remountPicker(tcPicker, 'tcPickerSlot');
+    loadTeacherClass();
   }
 
-  async function teacherReview(it, decision, note){
-    const errEl = $('teacherError');
-    errEl.style.display = 'none';
+  async function loadTeacherClass(){
+    const ci = tcPicker && tcPicker.classInfo();
+    if(hasClassInfo() && !ci){
+      $('teacherBody').innerHTML = '<p class="empty-note">학년과 반을 골라주세요.</p>';
+      return;
+    }
+    $('teacherBody').innerHTML = '<p class="loading">불러오는 중...</p>';
     try{
-      teacherData = await apiPost('teacherReview', {
-        teacherCode: teacherCode, row: it.row, name: it.name, bookTitle: it.bookTitle, decision: decision, note: note || ''
-      });
-      teacherMsg = decision === 'confirm' ? `${it.name} 학생의 독서록 권수를 올렸어요. ✅`
-        : decision === 'reject' ? `${it.name} 학생에게 다시 확인하라고 알렸어요.`
-        : '확인을 취소하고 대기 목록으로 되돌렸어요.';
-      renderTeacherPanel();
+      tView = await apiPost('teacherClass', Object.assign({ teacherCode: teacherCode }, ci || {}));
+      renderTeacherBody();
     }catch(err){
-      if(handleTeacherError(err) === false) showError(err, errEl, '처리하지 못했어요. 다시 시도해주세요.');
+      if(!handleTeacherError(err)) renderTeacherLogin('error');
     }
   }
 
-  function renderTeacherPending(){
-    const body = $('teacherBody');
-    const pending = teacherData.pending;
-    const recent = teacherData.recent;
-    body.innerHTML = `
-      ${pending.length === 0 ? '<p class="empty-note">확인을 기다리는 공책·면제권 독서록이 없어요.</p>' : pending.map((it, i) => `
-        <div class="teacher-card" data-p="${i}">
-          <div class="past-date">${fmtDateKo(it.date)} 제출</div>
-          <div class="past-title">${esc(it.name)} · ${esc(it.bookTitle)}</div>
-          <div class="past-meta"><span class="type-tag">${esc(it.recordType)}</span>${esc(teacherMeta(it))}</div>
-          <input type="text" class="t-note" placeholder="메모 (선택, 학생에게 보여요)">
-          <div class="t-actions">
-            <button class="btn-primary t-confirm" type="button">✅ 확인하기 (권수 +1)</button>
-            <button class="btn-ghost t-reject" type="button">↩️ 다시 확인하라고 하기</button>
-          </div>
-        </div>`).join('')}
-      ${recent.length ? `
-        <p class="t-section-title">최근에 처리한 것</p>
-        ${recent.map((it, i) => `
-          <div class="teacher-card" data-r="${i}">
-            <div class="past-title">${esc(it.name)} · ${esc(it.bookTitle)}</div>
-            <div class="past-meta"><span class="type-tag">${esc(it.recordType)}</span>${esc(teacherMeta(it))}
-              <span class="badge ${it.status === '확인완료' ? 'done' : 'warn'}" style="margin-left:6px;">${esc(it.status)}</span></div>
-            ${it.note ? `<div class="past-meta">메모: ${esc(it.note)}</div>` : ''}
-            <div class="t-actions"><button class="btn-ghost t-reopen" type="button">확인 취소 (다시 대기로)</button></div>
-          </div>`).join('')}` : ''}
-    `;
-    body.querySelectorAll('.teacher-card[data-p]').forEach(card => {
-      const it = pending[Number(card.getAttribute('data-p'))];
-      const note = card.querySelector('.t-note');
-      card.querySelector('.t-confirm').addEventListener('click', () => teacherReview(it, 'confirm', note.value.trim()));
-      card.querySelector('.t-reject').addEventListener('click', () => teacherReview(it, 'reject', note.value.trim()));
-    });
-    body.querySelectorAll('.teacher-card[data-r]').forEach(card => {
-      const it = recent[Number(card.getAttribute('data-r'))];
-      card.querySelector('.t-reopen').addEventListener('click', () => teacherReview(it, 'reopen', ''));
-    });
+  function showTeacherMsg(text){
+    const el = $('teacherMsg');
+    if(!el) return;
+    el.textContent = text;
+    el.classList.toggle('show', !!text);
   }
 
-  function renderTeacherAdd(){
-    const d = addDraft;
+  function renderTeacherBody(){
     const body = $('teacherBody');
+    if(!body || !tView) return;
+    const rows = tView.rows;
+    if(rows.length === 0){ body.innerHTML = '<p class="empty-note">이 반에는 등록된 학생이 없어요.</p>'; return; }
+    const tool = TOOLS.find(t => t.key === tTool.type);
+    const nChecked = rows.filter(r => tChecked[r.name]).length;
+    const allChecked = nChecked === rows.length;
+
     body.innerHTML = `
-      <p class="hint-line">학생이 따로 제출하지 않았어도, 공책이나 면제권을 확인했다면 여기서 바로 권수를 올릴 수 있어요.</p>
-      <div class="field">
-        <label for="addName">학생</label>
-        <select id="addName">
-          <option value="">이름을 선택하세요</option>
-          ${roster.map(n => `<option value="${esc(n)}"${n === d.name ? ' selected' : ''}>${esc(n)}</option>`).join('')}
-        </select>
-      </div>
-      ${bookFieldHtml('addBook', '책 이름', d.book)}
-      <div class="field-row-wrap">
-        <div class="field-row">
-          <div class="field"><label for="addPublisher">출판사</label><input type="text" id="addPublisher" value="${esc(d.publisher)}"></div>
-          <div class="field"><label for="addAuthor">지은이</label><input type="text" id="addAuthor" value="${esc(d.author)}"></div>
-          <div class="field"><label for="addPages">쪽수</label><input type="text" id="addPages" inputmode="numeric" value="${esc(d.pages)}"></div>
+      <div class="t-toolbar">
+        <p class="tb-title">체크한 친구들에게 한꺼번에 기록하기</p>
+        <div class="t-types">
+          ${TOOLS.map(t => `<button type="button" class="t-type${t.key === tTool.type ? ' active' : ''}" data-ttype="${t.key}">${t.label}</button>`).join('')}
         </div>
-      </div>
-      <div class="field">
-        <label>기록 선택</label>
-        <div class="type-toggle">
-          <button type="button" class="type-btn${d.type === '면제권' ? ' active' : ''}" data-atype="면제권">🎟️ 면제권</button>
-          <button type="button" class="type-btn${d.type === '공책' ? ' active' : ''}" data-atype="공책">✏️ 공책</button>
+        <div class="t-tool-grid">
+          <div class="field"><label for="tText">${tool.field}</label><input type="text" id="tText" placeholder="${esc(tool.ph)}" value="${esc(tTool.text)}"></div>
+          <div class="field"><label for="tDate">날짜</label><input type="date" id="tDate" value="${esc(tTool.date)}" max="${TODAY}"></div>
         </div>
+        <div class="field"><button class="btn-primary" id="tApplyBtn" type="button" disabled>${tool.apply}</button></div>
       </div>
-      <button class="btn-primary" id="addSaveBtn" type="button" disabled>권수 추가하기</button>
+      <p class="hint-line">${esc(classTitle(tView.grade, tView.cls))} · ${rows.length}명 — 이름 앞 칸을 체크하고 위에서 기록하기를 눌러요. "기록"을 누르면 그 친구의 기록이 보이고, 잘못한 건 취소할 수 있어요.</p>
+      <div class="t-table">
+        <div class="t-head">
+          <span><input type="checkbox" class="t-check" id="tCheckAll"${allChecked ? ' checked' : ''}></span><span>번호</span><span>이름</span><span>독서록 권수</span><span>면제권</span><span>특이사항</span><span></span>
+        </div>
+        ${rows.map(r => `
+          <div class="t-block${tOpen[r.name] ? ' open' : ''}" data-name="${esc(r.name)}">
+            <div class="t-row">
+              <span><input type="checkbox" class="t-check t-one" data-name="${esc(r.name)}"${tChecked[r.name] ? ' checked' : ''}></span>
+              <span class="t-num">${esc(r.num)}</span>
+              <span class="t-name">${esc(r.name)}</span>
+              <span class="t-stat">독서록 <b>${r.onlineCount + r.handCount}</b>권 <small>(온라인 ${r.onlineCount} · 손으로 쓴 ${r.handCount})</small></span>
+              <span class="t-stat">면제권 <b>${r.exemptCount}</b>회</span>
+              <span class="t-stat">특이사항 <b>${r.memoCount}</b></span>
+              <button class="btn-ghost t-more" type="button" data-name="${esc(r.name)}">기록 ${tOpen[r.name] ? '▴' : '▾'}</button>
+            </div>
+            <div class="t-logs">
+              ${r.logs.length === 0 ? '<div class="t-log" style="color:var(--ink-soft);">아직 기록한 것이 없어요.</div>' : r.logs.map(l => `
+                <div class="t-log${l.status === '유효' ? '' : ' cancelled'}">
+                  <span><span class="tl-type">${esc(l.type)}</span>${esc(l.text)} <small style="color:var(--ink-soft);">· ${esc(l.date)}${l.status === '유효' ? '' : ' · 취소됨'}</small></span>
+                  ${l.status === '유효' ? `<button class="btn-ghost t-cancel" type="button" data-row="${l.row}">취소</button>` : ''}
+                </div>`).join('')}
+            </div>
+          </div>`).join('')}
+      </div>
     `;
-    const saveBtn = $('addSaveBtn');
-    function checkValid(){ saveBtn.disabled = !(d.name && d.book.trim()); }
-    $('addName').addEventListener('change', e => { d.name = e.target.value; checkValid(); });
-    bindBookField('addBook', v => { d.book = v; checkValid(); });
-    $('addPublisher').addEventListener('input', e => { d.publisher = e.target.value; });
-    $('addAuthor').addEventListener('input', e => { d.author = e.target.value; });
-    $('addPages').addEventListener('input', e => { d.pages = e.target.value; });
-    body.querySelectorAll('[data-atype]').forEach(b => {
-      b.addEventListener('click', () => {
-        d.type = b.getAttribute('data-atype');
-        body.querySelectorAll('[data-atype]').forEach(x => x.classList.toggle('active', x === b));
-      });
+
+    const applyBtn = $('tApplyBtn');
+    function checkApply(){
+      const n = rows.filter(r => tChecked[r.name]).length;
+      applyBtn.disabled = !(n > 0 && (tTool.type !== '특이사항' || tTool.text.trim()));
+      applyBtn.textContent = n > 0 ? `체크한 ${n}명에게 ${tool.apply}` : tool.apply;
+    }
+    checkApply();
+
+    body.querySelectorAll('.t-type').forEach(b => b.addEventListener('click', () => {
+      tTool.type = b.getAttribute('data-ttype'); tTool.text = ''; renderTeacherBody();
+    }));
+    $('tText').addEventListener('input', e => { tTool.text = e.target.value; checkApply(); });
+    $('tDate').addEventListener('change', e => {
+      if(!e.target.value || e.target.value > TODAY){ e.target.value = tTool.date; return; }
+      tTool.date = e.target.value;
     });
-    checkValid();
-    saveBtn.addEventListener('click', async () => {
-      saveBtn.disabled = true;
-      saveBtn.textContent = '저장 중...';
-      const errEl = $('teacherError');
-      errEl.style.display = 'none';
+    $('tCheckAll').addEventListener('change', e => {
+      tChecked = {};
+      if(e.target.checked) rows.forEach(r => { tChecked[r.name] = true; });
+      body.querySelectorAll('.t-one').forEach(c => { c.checked = e.target.checked; });
+      checkApply();
+    });
+    body.querySelectorAll('.t-one').forEach(c => c.addEventListener('change', () => {
+      const nm = c.getAttribute('data-name');
+      if(c.checked) tChecked[nm] = true; else delete tChecked[nm];
+      $('tCheckAll').checked = rows.every(r => tChecked[r.name]);
+      checkApply();
+    }));
+    body.querySelectorAll('.t-more').forEach(b => b.addEventListener('click', () => {
+      const nm = b.getAttribute('data-name');
+      if(tOpen[nm]) delete tOpen[nm]; else tOpen[nm] = true;
+      renderTeacherBody();
+    }));
+    body.querySelectorAll('.t-cancel').forEach(b => b.addEventListener('click', async () => {
+      showTeacherMsg('');
+      $('teacherError').style.display = 'none';
       try{
-        teacherData = await apiPost('teacherAdd', {
-          teacherCode: teacherCode, name: d.name, bookTitle: d.book.trim(),
-          publisher: d.publisher.trim(), author: d.author.trim(), pages: d.pages.trim(), recordType: d.type
-        });
-        teacherMsg = `${d.name} 학생의 독서록 권수를 1권 올렸어요. ✅`;
-        addDraft = { name: d.name, book: '', publisher: '', author: '', pages: '', type: d.type };
-        renderTeacherPanel();
+        tView = await apiPost('teacherLogCancel', Object.assign({ teacherCode: teacherCode, row: Number(b.getAttribute('data-row')) }, { grade: tView.grade, cls: tView.cls }));
+        showTeacherMsg('기록을 취소했어요.');
+        renderTeacherBody();
       }catch(err){
-        if(handleTeacherError(err) === false) showError(err, errEl, '저장하지 못했어요. 다시 시도해주세요.');
-        saveBtn.textContent = '권수 추가하기';
-        checkValid();
+        if(!handleTeacherError(err)) showError(err, $('teacherError'), '취소하지 못했어요. 다시 시도해주세요.');
+      }
+    }));
+    applyBtn.addEventListener('click', async () => {
+      const names = rows.filter(r => tChecked[r.name]).map(r => r.name);
+      applyBtn.disabled = true;
+      applyBtn.textContent = '기록 중...';
+      showTeacherMsg('');
+      $('teacherError').style.display = 'none';
+      try{
+        tView = await apiPost('teacherLogAdd', {
+          teacherCode: teacherCode, grade: tView.grade, cls: tView.cls,
+          type: tTool.type, text: tTool.text.trim(), date: tTool.date, names: names
+        });
+        tChecked = {};
+        tTool.text = '';
+        showTeacherMsg(`${names.length}명에게 "${tool.label.replace(/^\S+\s/, '')}"을(를) 기록했어요. ✅`);
+        renderTeacherBody();
+      }catch(err){
+        if(!handleTeacherError(err)){ showError(err, $('teacherError'), '기록하지 못했어요. 다시 시도해주세요.'); checkApply(); }
       }
     });
   }
@@ -1148,7 +1435,14 @@
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       const target = tab.getAttribute('data-tab');
       $('panel-' + target).classList.add('active');
-      if(target === 'board') loadBoard(); // 들어올 때마다 최신 상태로
+      document.body.setAttribute('data-tab', target);
+      if(target === 'board'){
+        if(boardPicker && me && !boardPicker.touched && hasClassInfo()){
+          boardPicker.gv = toVal(me.grade); boardPicker.cv = toVal(me.cls);
+          remountPicker(boardPicker, 'boardPickerSlot');
+        }
+        loadBoard(); // 들어올 때마다 최신 상태로
+      }
       if(target === 'teacher') renderTeacher();
     });
   });
@@ -1162,7 +1456,10 @@
       books = data.books;
       currentBook = data.currentBook || '';
       hideGate();
-      fillRosterSelects();
+      me = null;
+      defaultClassFor(whoPicker, false);
+      remountPicker(whoPicker, 'whoSlot');
+      mountBoardPicker();
       renderRecordForm(); renderRecordHistory(); renderEssayForm(); renderEssayHistory();
     }catch(err){
       if(err && err.code === 'CODE_REQUIRED'){ showGate('code', classCode ? 'wrong' : ''); }
